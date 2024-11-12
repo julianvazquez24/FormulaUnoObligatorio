@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Tittle"] = "Carrera Page";
+}
+
+<h2 class="text-center">Carreras</h2>
+<div class="container">
+    <div class="row">
+        @foreach (var carrera in Model)
+        {
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@carrera.NombreCarrera</h5>
+                        <p><strong>Ciudad:</strong> @carrera.Ciudad</p>
+                        <p><strong>Fecha:</strong> @carrera.Fecha.ToShortDateString()</p>
+                        <h6>Resultados:</h6>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Posición Inicial</th>
+                                    <th>Posición Final</th>
+                                    <th>Nombre Piloto</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var resultado in carrera.Resultados)
+                                {
+                                    <tr>
+                                        <td>@resultado.PosicionInicial</td>
+                                        <td>@resultado.PosicionFinal</td>
+                                        <td>@resultado.Piloto.NombrePiloto</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

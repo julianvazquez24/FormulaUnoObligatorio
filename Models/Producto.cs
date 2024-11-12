@@ -1,4 +1,4 @@
-﻿namespace FormulaUnoObligatorio.Models  // Cambia "TuProyecto" por el nombre de tu proyecto
+﻿namespace FormulaUnoObligatorio.Models  
 {
     public class Producto
     {
