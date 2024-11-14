@@ -9,6 +9,8 @@ namespace FormulaUnoObligatorio.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         // Define el DbSet para tu modelo
-        public DbSet<Producto> Productos { get; set; }
+        public DbSet<Piloto> Pilotos { get; set; }
+        public DbSet<Escuderia> Escuderias { get; set; }
+        public DbSet<Carrera> Carreras { get; set; }
     }
 }

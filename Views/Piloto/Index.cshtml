@@ -1,0 +1,44 @@
+﻿@model IEnumerable<FormulaUnoObligatorio.Models.Piloto>
+
+@{
+    ViewData["Title"] = "Pilotos";
+}
+
+<div class="container mt-4">
+    <h1>Listado de Pilotos</h1>
+
+    <p>
+        <a class="btn btn-success" asp-action="Create">Crear Nuevo Piloto</a>
+    </p>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Pais</th>
+                <th>Fecha de Nacimiento</th>
+                <th>Escuderia</th>
+                <th></th>
+            </tr>
+        </thead>
+        
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.NombrePiloto) </td>
+                <td>@Html.DisplayFor(modelItem => item.ApellidoPiloto) </td>
+                <td>@Html.DisplayFor(modelItem => item.PaisPiloto)</td>
+                <td>@Html.DisplayFor(modelItem => item.FechaNacimiento)</td>
+                <td>@Html.DisplayFor(ModelItem => item.EscuderiaPiloto)</td>
+                <td>
+                    <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.IdPiloto">Editar</a>
+                    <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.IdPiloto">Detalles</a>
+                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.IdPiloto">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    </table>
+</div>
