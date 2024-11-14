@@ -12,5 +12,6 @@ namespace FormulaUnoObligatorio.Data
         public DbSet<Piloto> Pilotos { get; set; }
         public DbSet<Escuderia> Escuderias { get; set; }
         public DbSet<Carrera> Carreras { get; set; }
+
     }
 }
