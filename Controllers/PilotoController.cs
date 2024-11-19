@@ -44,13 +44,14 @@ namespace FormulaUnoObligatorio.Controllers
         // Get Create
         public IActionResult Create()
         {
-            return View(new Piloto());
+            ViewBag.IdEscuderia= new SelectList(_context.Escuderias, "IdEscuderia", "NombreEscuderia");
+            return View();
         }
 
         // POST: Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("NombrePiloto, ApellidoPiloto, PaisPiloto, FechaNacimiento, EscuderiaPilotoId")] Piloto piloto)
+        public IActionResult Create([Bind("NombrePiloto, ApellidoPiloto, PaisPiloto, FechaNacimiento, IdEscuderia")] Piloto piloto)
         {
             if (ModelState.IsValid)
             {
@@ -61,21 +62,12 @@ namespace FormulaUnoObligatorio.Controllers
                     return View(piloto);
                 }
 
-                
-                var escuderia = _context.Escuderias
-                    .FirstOrDefault(e => e.IdEscuderia == piloto.IdEscuderia);
-
-                if (escuderia != null)
-                {
-                    piloto.EscuderiaPiloto = escuderia;  
-                }
-
                 _context.Add(piloto);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-
-            ViewBag.Escuderia = new SelectList(_context.Escuderias, "IdEscuderia", "NombreEscuderia");
+            ViewBag.IdEscuderia= new SelectList(_context.Escuderias, "IdEscuderia", "NombreEscuderia", piloto.IdEscuderia);
+   
             return View(piloto);
         }
 
@@ -103,7 +95,7 @@ namespace FormulaUnoObligatorio.Controllers
         // Post Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int idPiloto, [Bind("IdPiloto,NombrePiloto,FechaNacimiento,PaisPiloto,PuntosTotales,EscuderiaId")] Piloto piloto)
+        public IActionResult Edit(int idPiloto, [Bind("IdPiloto, NombrePiloto, FechaNacimiento, PaisPiloto, PuntosTotales, IdEscuderia")] Piloto piloto)
         {
             if (idPiloto != piloto.IdPiloto)
             {

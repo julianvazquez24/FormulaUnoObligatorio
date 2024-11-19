@@ -2,7 +2,7 @@
 
 <h2 class="text-center">Crear Nuevo Piloto</h2>
 
-<hr />
+<hr/>
 
 <div class="row">
     <div class="col-md-6">
@@ -34,8 +34,9 @@
             </div>
             <br />
             <div class="form-group">
-                <label for="IdEscuderia">Escuderia</label>
-                <input type="text" class="form-control" id="IdEscuderia" name="IdEscuderia" value="@Model.IdEscuderia" />
+                <label asp-for="IdEscuderia" class="control-label"></label>
+                <select asp-for="IdEscuderia" class="form-control" asp-items="ViewBag.IdEscuderia"></select>
+
             </div>
 
 

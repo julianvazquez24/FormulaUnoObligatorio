@@ -42,13 +42,12 @@ namespace FormulaUnoObligatorio.Controllers
 
         public IActionResult Create()
         {
-            ViewBag.Escuderia = new SelectList(_context.Escuderias, "IdEscuderia", "Nombre");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("NombreEscuderia, SponsorOficial, PaisEscuderia")] Escuderia escuderia)
+        public IActionResult Create([Bind("IdEscuderia, NombreEscuderia, SponsorOficial, PaisEscuderia")] Escuderia escuderia)
         {
             if (ModelState.IsValid)
             {
@@ -70,7 +69,7 @@ namespace FormulaUnoObligatorio.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdEscuderia"] = new SelectList(_context.Escuderias, "IdEscuderia", "Nombre", escuderia.IdEscuderia);
+
             return View(escuderia);
         }
 
