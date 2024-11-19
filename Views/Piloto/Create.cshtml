@@ -1,44 +1,54 @@
 ﻿@model FormulaUnoObligatorio.Models.Piloto
 
-@{
-    ViewData["Title"] = "Crear Piloto";
-}
-
-<h1 style="font-family: 'Arial', sans-serif;">@ViewData["Title"]</h1>
+<h2 class="text-center">Crear Nuevo Piloto</h2>
 
 <hr />
+
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="col-md-6">
+        <form asp-action="Create" aria-labelledby="form-title">
+            <div asp-validation-summary="All" class="text-danger" role="alert"></div>
+
             <div class="form-group">
                 <label asp-for="NombrePiloto" class="control-label"></label>
-                <input asp-for="NombrePiloto" class="form-control" />
+                <input asp-for="NombrePiloto" class="form-control" aria-required="true" aria-describedby="nombreHelp" />
                 <span asp-validation-for="NombrePiloto" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
                 <label asp-for="ApellidoPiloto" class="control-label"></label>
-                <input asp-for="ApellidoPiloto" class="form-control" />
+                <input asp-for="ApellidoPiloto" class="form-control" aria-describedby="sponsorHelp" />
                 <span asp-validation-for="ApellidoPiloto" class="text-danger"></span>
-            </div>
+                </div>
+            <br />
             <div class="form-group">
-                <label asp-for="PaisPiloto" class="control-label"></label>
-                <input asp-for="PaisPiloto" class="form-control" />
-                <span asp-validation-for="PaisPiloto" class="text-danger"></span>
+                    <label asp-for="PaisPiloto" class="control-label"></label>
+                    <input asp-for="PaisPiloto" class="form-control" aria-required="true" aria-describedby="paisHelp" />
+                    <span asp-validation-for="PaisPiloto" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
-                <input type="submit" value="Crear" class="btn btn-primary" />
+                <label asp-for="FechaNacimiento" class="control-label"></label>
+                <input asp-for="FechaNacimiento" class="form-control" aria-required="true" aria-describedby="paisHelp" />
+                <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label for="IdEscuderia">Escuderia</label>
+                <input type="text" class="form-control" id="IdEscuderia" name="IdEscuderia" value="@Model.IdEscuderia" />
+            </div>
+
+
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary">Crear</button>
+                <a asp-action="Index" class="btn btn-secondary ms-2">Volver al Listado</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Volver al LIstado de Pilotos</a>
-</div>
-
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    @await Html.PartialAsync("_ValidationScriptsPartial")
 }
+
+

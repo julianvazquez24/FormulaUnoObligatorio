@@ -4,6 +4,7 @@ using FormulaUnoObligatorio.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FormulaUnoObligatorio.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241115013145_AddEscuderiaPiloto")]
+    partial class AddEscuderiaPiloto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,7 +44,12 @@ namespace FormulaUnoObligatorio.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PilotoIdPiloto")
+                        .HasColumnType("int");
+
                     b.HasKey("IdCarrera");
+
+                    b.HasIndex("PilotoIdPiloto");
 
                     b.ToTable("Carreras");
                 });
@@ -107,6 +115,13 @@ namespace FormulaUnoObligatorio.Migrations
                     b.ToTable("Pilotos");
                 });
 
+            modelBuilder.Entity("FormulaUnoObligatorio.Models.Carrera", b =>
+                {
+                    b.HasOne("FormulaUnoObligatorio.Models.Piloto", null)
+                        .WithMany("Carreras")
+                        .HasForeignKey("PilotoIdPiloto");
+                });
+
             modelBuilder.Entity("FormulaUnoObligatorio.Models.Piloto", b =>
                 {
                     b.HasOne("FormulaUnoObligatorio.Models.Escuderia", "EscuderiaPiloto")
@@ -121,6 +136,11 @@ namespace FormulaUnoObligatorio.Migrations
             modelBuilder.Entity("FormulaUnoObligatorio.Models.Escuderia", b =>
                 {
                     b.Navigation("Pilotos");
+                });
+
+            modelBuilder.Entity("FormulaUnoObligatorio.Models.Piloto", b =>
+                {
+                    b.Navigation("Carreras");
                 });
 #pragma warning restore 612, 618
         }

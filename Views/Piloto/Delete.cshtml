@@ -1,5 +1,24 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model FormulaUnoObligatorio.Models.Piloto
+
+<h2 class="text-center mb-4">Eliminar Piloto</h2>
+<hr />
+<h3>¿Estas seguro de que quieres eliminar el piloto?</h3>
+<br />
+
+<div>
+    <h4>@Model.NombrePiloto @Model.ApellidoPiloto</h4>
+    <br />
+    <p><strong>Escudería:</strong> @Model.EscuderiaPiloto?.NombreEscuderia</p>
+    <p><strong>Fecha de nacimiento:</strong> @Model.FechaNacimiento</p>
+    <p><strong>Pais:</strong> @Model.PaisPiloto</p>
+</div>
+
+<form method="post">
+    <input type="hidden" asp-for="IdPiloto" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary ms-2">Volver al Listado</a>
+</form>
+
+
+
+

@@ -1,11 +1,6 @@
 ﻿@model IEnumerable<FormulaUnoObligatorio.Models.Piloto>
 
-@{
-    ViewData["Title"] = "Pilotos";
-}
-
-<div class="container mt-4">
-    <h1>Listado de Pilotos</h1>
+<h2>Listado de Pilotos</h2>
 
     <p>
         <a class="btn btn-success" asp-action="Create">Crear Nuevo Piloto</a>
@@ -14,31 +9,37 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Pais</th>
-                <th>Fecha de Nacimiento</th>
-                <th>Escuderia</th>
-                <th></th>
+                <th>Nombre Piloto</th>
+                <th>Apellido Piloto</th>
+                <th>Pais Piloto</th>
+                <th>Fecha Nacimiento</th>
+                <th>Escuderia Piloto</th> 
+                <th>Acciones</th>
             </tr>
         </thead>
-        
-    <tbody>
-        @foreach(var item in Model)
-        {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => item.NombrePiloto) </td>
-                <td>@Html.DisplayFor(modelItem => item.ApellidoPiloto) </td>
-                <td>@Html.DisplayFor(modelItem => item.PaisPiloto)</td>
-                <td>@Html.DisplayFor(modelItem => item.FechaNacimiento)</td>
-                <td>@Html.DisplayFor(ModelItem => item.EscuderiaPiloto)</td>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.NombrePiloto)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ApellidoPiloto)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PaisPiloto)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FechaNacimiento)</td>
+                    <td>@Html.DisplayFor(modelItem => item.EscuderiaPiloto)</td>
                 <td>
-                    <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.IdPiloto">Editar</a>
-                    <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.IdPiloto">Detalles</a>
-                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.IdPiloto">Eliminar</a>
+                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.IdEscuderia">Editar</a>
+                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.IdEscuderia">Detalles</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.IdEscuderia">Eliminar</a>
                 </td>
-            </tr>
-        }
-    </tbody>
+                </tr>
+            }
+        </tbody>
+        
     </table>
-</div>
+    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+    {
+    <div class="alert alert-danger">
+        @error.ErrorMessage
+    </div>
+    }
+

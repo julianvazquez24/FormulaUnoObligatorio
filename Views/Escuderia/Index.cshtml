@@ -1,0 +1,52 @@
+﻿@model IEnumerable<FormulaUnoObligatorio.Models.Escuderia>
+
+<h2>Listado de Escuderias</h2>
+
+<p>
+    <a class="btn btn-success" asp-action="Create">Crear Escuderia</a>
+</p>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Sponsor Oficial</th>
+            <th>Pais de Origen</th>
+            <th>Pilotos</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreEscuderia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SponsorOficial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaisEscuderia)
+                </td>
+                <td>
+                    @foreach (var piloto in item.Pilotos)
+                    {
+                        @Html.DisplayFor(modelItem => piloto.NombrePiloto) 
+
+                        <br />
+                    }
+                </td>
+                <td>
+                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.IdEscuderia">Editar</a>
+                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.IdEscuderia">Detalles</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.IdEscuderia">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+
+

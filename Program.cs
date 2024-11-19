@@ -1,30 +1,35 @@
 using Microsoft.EntityFrameworkCore;
-using FormulaUnoObligatorio.Data;  // Cambia "TuProyecto" por el nombre de tu proyecto
+using FormulaUnoObligatorio.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Agregar servicios al contenedor.
 builder.Services.AddControllersWithViews();
 
-// Configura el DbContext con SQL Server
+// Configurar DbContext con SQL Server
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+// Configurar el pipeline de solicitudes HTTP.
+if (app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseDeveloperExceptionPage(); // Mostrar detalles de error en desarrollo
 }
+else
+{
+    app.UseExceptionHandler("/Home/Error"); // Manejo genérico de errores en producción
+}
+
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
 
+// Configurar la ruta predeterminada
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+

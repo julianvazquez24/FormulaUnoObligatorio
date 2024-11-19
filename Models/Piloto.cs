@@ -9,17 +9,22 @@ namespace FormulaUnoObligatorio.Models
 
         [Required(ErrorMessage = "El nombre del piloto no puede estar vacio")]
         public string NombrePiloto { get; set; }
+
+        [Required(ErrorMessage = "El apellido del piloto no puede estar vacio")]
         public string ApellidoPiloto { get; set; }
 
-        public string PaisPiloto { get; set; } 
+        public string PaisPiloto { get; set; }
 
-        [Required(ErrorMessage = "La fecha de nacimiento no puede estar vacía")]
+        [Required(ErrorMessage = "La fecha de nacimiento no puede estar vacia")]
         public DateOnly FechaNacimiento { get; set; }
+        [Required]
         public int IdEscuderia { get; set; }
+
         public Escuderia EscuderiaPiloto { get; set; }
 
-        [Required(ErrorMessage = "El tipo de piloto debe ser seleccionado")]
-        public List<Carrera> Carreras { get; set; } = new List<Carrera>();
+     
+        
     }
 }
+
 

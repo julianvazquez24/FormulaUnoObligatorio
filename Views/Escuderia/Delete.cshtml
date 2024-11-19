@@ -1,0 +1,21 @@
+﻿@model FormulaUnoObligatorio.Models.Escuderia
+
+<h2 class="text-center mb-4">Eliminar Escuderia</h2>
+<hr />
+<h3>¿Estas seguro de que quieres eliminar la escuderia?</h3>
+<br />
+<div>
+    <h4>@Model.NombreEscuderia</h4>
+    <br />
+    <p><strong>Nombre Escuderia: </strong>@Model.NombreEscuderia</p>
+    <p><strong>Sponsor Oficial:</strong> @Model.SponsorOficial</p>
+    <p><strong>Pais:</strong>@Model.PaisEscuderia</p>
+</div>
+
+<form method="post">
+    <input type="hidden" asp-for="IdEscuderia" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary ms-2">Volver al Listado</a>
+</form>
+
+

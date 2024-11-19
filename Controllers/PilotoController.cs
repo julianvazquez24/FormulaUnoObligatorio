@@ -19,7 +19,7 @@ namespace FormulaUnoObligatorio.Controllers
         public IActionResult Index()
         {
             var appDbContext = _context.Pilotos.Include(p => p.EscuderiaPiloto);
-            return View("Index", appDbContext.ToList());
+             return View("Index", appDbContext.ToList());
         }
 
 
@@ -44,24 +44,38 @@ namespace FormulaUnoObligatorio.Controllers
         // Get Create
         public IActionResult Create()
         {
-            ViewData["Escuderia"] = new SelectList(_context.Escuderias, "IdEscuderia", "Nombre");
-            return View();
+            return View(new Piloto());
         }
 
-        // Post Create
+        // POST: Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("NombrePiloto,FechaNacimiento,PaisPiloto,PuntosTotales,EscuderiaId")] Piloto piloto)
+        public IActionResult Create([Bind("NombrePiloto, ApellidoPiloto, PaisPiloto, FechaNacimiento, EscuderiaPilotoId")] Piloto piloto)
         {
             if (ModelState.IsValid)
             {
+                int totalPilotos = _context.Pilotos.Count();
+                if (totalPilotos >= 20)
+                {
+                    ModelState.AddModelError(string.Empty, "No se puede agregar más de 20 pilotos.");
+                    return View(piloto);
+                }
+
+                
+                var escuderia = _context.Escuderias
+                    .FirstOrDefault(e => e.IdEscuderia == piloto.IdEscuderia);
+
+                if (escuderia != null)
+                {
+                    piloto.EscuderiaPiloto = escuderia;  
+                }
+
                 _context.Add(piloto);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
 
-            // Cambiar para que el ViewBag contenga los nombres de las escuderías
-            ViewData["Escuderia"] = new SelectList(_context.Escuderias, "IdEscuderia", "Nombre", piloto.IdEscuderia);
+            ViewBag.Escuderia = new SelectList(_context.Escuderias, "IdEscuderia", "NombreEscuderia");
             return View(piloto);
         }
 
@@ -73,15 +87,18 @@ namespace FormulaUnoObligatorio.Controllers
             {
                 return NotFound();
             }
+
             var piloto = _context.Pilotos.Find(id);
             if (piloto == null)
             {
                 return NotFound();
             }
-            ViewData["IdEscuderia"] = new SelectList(_context.Escuderias, "Id", "Nombre", piloto.IdEscuderia);
             
+            ViewData["IdEscuderia"] = new SelectList(_context.Escuderias, "IdEscuderia", "Nombre", piloto.IdEscuderia);
+
             return View(piloto);
         }
+
 
         // Post Edit
         [HttpPost]
@@ -152,9 +169,9 @@ namespace FormulaUnoObligatorio.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public bool PilotoExists(int id)
+        public bool PilotoExists(int idPiloto)
         {
-            return _context.Pilotos.Any(e => e.IdPiloto == id);
+            return _context.Pilotos.Any(e => e.IdPiloto == idPiloto);
         }
     }
 }
