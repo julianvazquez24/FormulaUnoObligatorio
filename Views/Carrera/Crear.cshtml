@@ -1,0 +1,36 @@
+﻿@model FormulaUnoObligatorio.Models.Carrera
+
+<h2 class="text-center">Crear Nueva Carrera</h2>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Crear" aria-labelledby="form-title">
+            <div asp-validation-summary="All" class="text-danger" role="alert"></div>
+
+            <div class="form-group">
+                <label asp-for="NombreCarrera" class="control-label"></label>
+                <input asp-for="NombreCarrera" class="form-control" aria-required="true" aria-describedby="nombreHelp" />
+                <span asp-validation-for="NombreCarrera" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="CiudadCarrera" class="control-label"></label>
+                <input asp-for="CiudadCarrera" class="form-control" aria-describedby="sponsorHelp" />
+                <span asp-validation-for="CiudadCarrera" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="FechaCarrera" class="control-label"></label>
+                <input asp-for="FechaCarrera" class="form-control" aria-describedby="sponsorHelp" />
+                <span asp-validation-for="FechaCarrera" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary">Crear</button>
+                <a asp-action="Index" class="btn btn-secondary ms-2">Volver al Listado</a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+﻿@model FormulaUnoObligatorio.Models.Carrera
+
+<h2 class="text-center mb-4">Detalles de la Carrera</h2>
+<hr />
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h4>@Model.NombreCarrera</h4>
+    </div>
+    <div class="card-body">
+        <p><strong>Cuidad:</strong> @Model.CiudadCarrera</p>
+        <p><strong>Fecha:</strong> @Model.FechaCarrera</p>
+    </div>
+</div>
+
+<div class="mt-4 text-center">
+    <a href="@Url.Action("Index", "Carrera")" class="btn btn-secondary">Volver al listado</a>
+</div>

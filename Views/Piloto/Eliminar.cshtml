@@ -8,7 +8,7 @@
 <div>
     <h4>@Model.NombrePiloto @Model.ApellidoPiloto</h4>
     <br />
-    <p><strong>Escudería:</strong> @Model.EscuderiaPiloto?.NombreEscuderia</p>
+    <p><strong>Escudería:</strong> @Model.EscuderiaPiloto</p>
     <p><strong>Fecha de nacimiento:</strong> @Model.FechaNacimiento</p>
     <p><strong>Pais:</strong> @Model.PaisPiloto</p>
 </div>
@@ -18,7 +18,4 @@
     <button type="submit" class="btn btn-danger">Eliminar</button>
     <a asp-action="Index" class="btn btn-secondary ms-2">Volver al Listado</a>
 </form>
-
-
-
 

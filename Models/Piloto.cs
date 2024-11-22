@@ -17,14 +17,12 @@ namespace FormulaUnoObligatorio.Models
 
         [Required(ErrorMessage = "La fecha de nacimiento no puede estar vacia")]
         public DateOnly FechaNacimiento { get; set; }
-       
+
         // relacion N-1 con Escuderia 
-        
-        [Required (ErrorMessage = "Escudería no puede estár vacío")]
+
+        [Required(ErrorMessage = "Escudería no puede estár vacío")]
         public int IdEscuderia { get; set; }
         public Escuderia? EscuderiaPiloto { get; set; }
-        
+
     }
 }
-
-

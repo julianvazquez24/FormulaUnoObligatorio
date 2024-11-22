@@ -3,7 +3,7 @@
 <h2>Listado de Escuderias</h2>
 
 <p>
-    <a class="btn btn-success" asp-action="Create">Crear Escuderia</a>
+    <a class="btn btn-success" asp-action="Crear">Crear Escuderia</a>
 </p>
 
 <table class="table table-hover">
@@ -12,7 +12,7 @@
             <th>Nombre</th>
             <th>Sponsor Oficial</th>
             <th>Pais de Origen</th>
-            <th>Pilotos</th>
+            
             <th>Acciones</th>
         </tr>
     </thead>
@@ -29,23 +29,15 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.PaisEscuderia)
                 </td>
+                
                 <td>
-                    @foreach (var piloto in item.Pilotos)
-                    {
-                        @Html.DisplayFor(modelItem => piloto.NombrePiloto) 
-
-                        <br />
-                    }
-                </td>
-                <td>
-                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.IdEscuderia">Editar</a>
-                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.IdEscuderia">Detalles</a>
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.IdEscuderia">Eliminar</a>
+                    <a class="btn btn-warning" asp-action="Editar" asp-route-id="@item.IdEscuderia">Editar</a>
+                    <a class="btn btn-primary" asp-action="Detalles" asp-route-id="@item.IdEscuderia">Detalles</a>
+                    <a class="btn btn-danger" asp-action="Eliminar" asp-route-id="@item.IdEscuderia">Eliminar</a>
                 </td>
             </tr>
         }
     </tbody>
-
 </table>
 
 

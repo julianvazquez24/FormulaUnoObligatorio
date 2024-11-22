@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-md-6">
-        <form asp-action="Create" aria-labelledby="form-title">
+        <form asp-action="Crear" aria-labelledby="form-title">
             <div asp-validation-summary="All" class="text-danger" role="alert"></div>
 
             <div class="form-group">
@@ -17,29 +17,27 @@
             <br />
             <div class="form-group">
                 <label asp-for="ApellidoPiloto" class="control-label"></label>
-                <input asp-for="ApellidoPiloto" class="form-control" aria-describedby="sponsorHelp" />
+                <input asp-for="ApellidoPiloto" class="form-control" />
                 <span asp-validation-for="ApellidoPiloto" class="text-danger"></span>
-                </div>
+            </div>
             <br />
             <div class="form-group">
-                    <label asp-for="PaisPiloto" class="control-label"></label>
-                    <input asp-for="PaisPiloto" class="form-control" aria-required="true" aria-describedby="paisHelp" />
-                    <span asp-validation-for="PaisPiloto" class="text-danger"></span>
+                <label asp-for="PaisPiloto" class="control-label"></label>
+                <input asp-for="PaisPiloto" class="form-control" aria-required="true"/>
+                <span asp-validation-for="PaisPiloto" class="text-danger"></span>
             </div>
             <br />
             <div class="form-group">
                 <label asp-for="FechaNacimiento" class="control-label"></label>
-                <input asp-for="FechaNacimiento" class="form-control" aria-required="true" aria-describedby="paisHelp" />
+                <input asp-for="FechaNacimiento" class="form-control" aria-required="true" />
                 <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
             </div>
             <br />
             <div class="form-group">
-                <label asp-for="IdEscuderia" class="control-label"></label>
+                <label asp-for="IdEscuderia">Escuderia</label>
                 <select asp-for="IdEscuderia" class="form-control" asp-items="ViewBag.IdEscuderia"></select>
-
+                <span asp-validation-for="IdEscuderia" class="text-danger"></span>
             </div>
-
-
             <div class="form-group mt-3">
                 <button type="submit" class="btn btn-primary">Crear</button>
                 <a asp-action="Index" class="btn btn-secondary ms-2">Volver al Listado</a>
@@ -47,6 +45,7 @@
         </form>
     </div>
 </div>
+
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")

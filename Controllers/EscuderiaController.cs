@@ -15,11 +15,10 @@ namespace FormulaUnoObligatorio.Controllers
         }
         public IActionResult Index()
         {
-           
-            return View("Index", _context.Escuderias.ToList());
+           return View(_context.Escuderias.ToList());
         }
 
-        public IActionResult Details(int? id)
+        public IActionResult Detalles(int? id)
         {
             if (id == null)
             {
@@ -40,14 +39,16 @@ namespace FormulaUnoObligatorio.Controllers
 
 
 
-        public IActionResult Create()
+        public IActionResult Crear()
         {
+            ViewBag.Escuderias = new SelectList(_context.Escuderias, "IdEscuderia", "NombreEscuderia");
             return View();
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("IdEscuderia, NombreEscuderia, SponsorOficial, PaisEscuderia")] Escuderia escuderia)
+        public IActionResult Crear([Bind("IdEscuderia, NombreEscuderia, SponsorOficial, PaisEscuderia")] Escuderia escuderia)
         {
             if (ModelState.IsValid)
             {
@@ -58,7 +59,7 @@ namespace FormulaUnoObligatorio.Controllers
             return View(escuderia);
         }
 
-        public IActionResult Edit(int? id)
+        public IActionResult Editar(int? id)
         {
             if (id == null)
             {
@@ -75,9 +76,9 @@ namespace FormulaUnoObligatorio.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int idEscuderia, [Bind("NombreEscuderia, SponsorOficial, PaisEscuderia")] Escuderia escuderia)
+        public IActionResult Editar(int idEscuderia, [Bind("IdEscuderia, NombreEscuderia, SponsorOficial, PaisEscuderia")] Escuderia escuderia)
         {
-            if(idEscuderia != escuderia.IdEscuderia)
+            if (idEscuderia != escuderia.IdEscuderia)
             {
                 return NotFound();
             }
@@ -90,7 +91,7 @@ namespace FormulaUnoObligatorio.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EscuderiaExists(escuderia.IdEscuderia))
+                    if (!EscuderiaExiste(escuderia.IdEscuderia))
                     {
                         return NotFound();
                     }
@@ -103,8 +104,7 @@ namespace FormulaUnoObligatorio.Controllers
             }
             return View(escuderia);
         }
-
-        public IActionResult Delete(int? id)
+        public IActionResult Eliminar(int? id)
         {
             if(id == null)
             {
@@ -121,9 +121,9 @@ namespace FormulaUnoObligatorio.Controllers
             return View(escuderia);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("Eliminar")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public IActionResult EliminarConfirmada(int id)
         {
             var escuderia = _context.Escuderias.Find(id);
             if (escuderia != null)
@@ -133,10 +133,7 @@ namespace FormulaUnoObligatorio.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
-
-
-
-        public bool EscuderiaExists(int idEscuderia)
+        public bool EscuderiaExiste(int idEscuderia)
         {
             return _context.Escuderias.Any(e => e.IdEscuderia == idEscuderia);
         }

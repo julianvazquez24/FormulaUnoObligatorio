@@ -24,25 +24,29 @@ namespace FormulaUnoObligatorio.Controllers
 
 
         // Details (Ver los detalles de un Piloto)
-        public IActionResult Details(int? idPiloto)
+        public IActionResult Detalles(int? id)
         {
-            if (idPiloto == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var piloto = _context.Pilotos
                 .Include(p => p.EscuderiaPiloto)
-                .FirstOrDefault(m => m.IdPiloto == idPiloto);
+                .FirstOrDefault(m => m.IdPiloto == id);
+
+
             if (piloto == null)
             {
                 return NotFound();
             }
+
             return View(piloto);
         }
 
+
         // Get Create
-        public IActionResult Create()
+        public IActionResult Crear()
         {
             ViewBag.IdEscuderia= new SelectList(_context.Escuderias, "IdEscuderia", "NombreEscuderia");
             return View();
@@ -51,10 +55,19 @@ namespace FormulaUnoObligatorio.Controllers
         // POST: Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("NombrePiloto, ApellidoPiloto, PaisPiloto, FechaNacimiento, IdEscuderia")] Piloto piloto)
+        public IActionResult Crear([Bind("NombrePiloto, ApellidoPiloto, PaisPiloto, FechaNacimiento, IdEscuderia")] Piloto piloto)
         {
             if (ModelState.IsValid)
             {
+                var maximoPilotos = _context.Pilotos.Count(p => p.IdEscuderia == piloto.IdEscuderia);
+                if (maximoPilotos >= 2)
+                {
+                    ModelState.AddModelError(string.Empty, "No puede existir mas de 2 pilotos por escuderia.");
+
+
+                    return View(piloto);
+                }
+
                 int totalPilotos = _context.Pilotos.Count();
                 if (totalPilotos >= 20)
                 {
@@ -66,14 +79,14 @@ namespace FormulaUnoObligatorio.Controllers
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.IdEscuderia= new SelectList(_context.Escuderias, "IdEscuderia", "NombreEscuderia", piloto.IdEscuderia);
-   
+            ViewData["IdEscuderia"] = new SelectList(_context.Escuderias, "IdEscuderia", "NombreEscuderia", piloto.IdEscuderia);
+
             return View(piloto);
         }
 
-
         // Get Edit
-        public IActionResult Edit(int? id)
+        [HttpGet]
+        public IActionResult Editar(int? id)
         {
             if (id == null)
             {
@@ -85,19 +98,18 @@ namespace FormulaUnoObligatorio.Controllers
             {
                 return NotFound();
             }
+
             
-            ViewData["IdEscuderia"] = new SelectList(_context.Escuderias, "IdEscuderia", "Nombre", piloto.IdEscuderia);
+            ViewBag.Escuderia = new SelectList(_context.Escuderias, "IdEscuderia", "NombreEscuderia", piloto.IdEscuderia);
 
             return View(piloto);
         }
 
-
-        // Post Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int idPiloto, [Bind("IdPiloto, NombrePiloto, FechaNacimiento, PaisPiloto, PuntosTotales, IdEscuderia")] Piloto piloto)
+        public IActionResult Editar(int id, [Bind("IdPiloto,NombrePiloto,ApellidoPiloto,PaisPiloto,FechaNacimiento,IdEscuderia")] Piloto piloto)
         {
-            if (idPiloto != piloto.IdPiloto)
+            if (id != piloto.IdPiloto)
             {
                 return NotFound();
             }
@@ -106,14 +118,12 @@ namespace FormulaUnoObligatorio.Controllers
             {
                 try
                 {
-                    // Actualizar el piloto en el contexto
                     _context.Update(piloto);
                     _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    // Verificar si el piloto sigue existiendo en la base de datos
-                    if (!PilotoExists(piloto.IdPiloto))
+                    if (!_context.Pilotos.Any(p => p.IdPiloto == id))
                     {
                         return NotFound();
                     }
@@ -122,23 +132,29 @@ namespace FormulaUnoObligatorio.Controllers
                         throw;
                     }
                 }
-                // Redirigir a la acción Index después de guardar correctamente los cambios
                 return RedirectToAction(nameof(Index));
             }
+
+           
+            ViewBag.Escuderia = new SelectList(_context.Escuderias, "IdEscuderia", "NombreEscuderia", piloto.IdEscuderia);
             return View(piloto);
         }
 
+
+
         // Get Delete
-        public IActionResult Delete(int? idPiloto)
+        public IActionResult Eliminar(int? id)
         {
-            if (idPiloto == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var piloto = _context.Pilotos
                 .Include(p => p.EscuderiaPiloto)
-                .FirstOrDefault(m => m.IdPiloto == idPiloto);
+                .FirstOrDefault(m => m.IdPiloto == id);
+
+
             if (piloto == null)
             {
                 return NotFound();
@@ -148,11 +164,11 @@ namespace FormulaUnoObligatorio.Controllers
         }
 
         // Post Delete
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("Eliminar")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int idPiloto)
+        public IActionResult EliminarConfirmada(int id)
         {
-            var piloto = _context.Pilotos.Find(idPiloto);
+            var piloto = _context.Pilotos.Find(id);
             if (piloto != null)
             {
                 _context.Pilotos.Remove(piloto);
@@ -161,7 +177,8 @@ namespace FormulaUnoObligatorio.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public bool PilotoExists(int idPiloto)
+
+        public bool PilotoExiste(int idPiloto)
         {
             return _context.Pilotos.Any(e => e.IdPiloto == idPiloto);
         }

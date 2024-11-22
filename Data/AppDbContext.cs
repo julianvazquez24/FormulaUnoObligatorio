@@ -25,5 +25,8 @@ namespace FormulaUnoObligatorio.Data
                 .WithMany(escuderia => escuderia.Pilotos)
                 .HasForeignKey(piloto => piloto.IdEscuderia);  // IdEscuderia es clave foranea
         }
+
+        
+
     }
 }

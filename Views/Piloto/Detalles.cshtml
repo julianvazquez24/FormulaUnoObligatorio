@@ -8,15 +8,12 @@
         <h4>@Model.NombrePiloto</h4>
     </div>
     <div class="card-body">
-        <p><strong>Sponsor Oficial:</strong> @Model.ApellidoPiloto</p>
+        <p><strong>Apellido :</strong> @Model.ApellidoPiloto</p>
         <p><strong>Pais:</strong> @Model.PaisPiloto</p>
-        <p><strong>Fecha Nacimiento:</strong> @Model.FechaNacimiento</p>
+        <p><strong>Fecha Nacimiento:</strong> @Model.FechaNacimiento.ToString("dd/MM/yyyy")</p>
     </div>
 </div>
 
 <div class="mt-4 text-center">
-    <a href="@Url.Action("Index", "Escuderia")" class="btn btn-secondary">Volver al listado</a>
+    <a href="@Url.Action("Index", "Piloto")" class="btn btn-secondary">Volver al listado</a>
 </div>
-
-
-

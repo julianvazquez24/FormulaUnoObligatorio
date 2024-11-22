@@ -3,15 +3,15 @@
 <h2>Listado de Pilotos</h2>
 
     <p>
-        <a class="btn btn-success" asp-action="Create">Crear Nuevo Piloto</a>
+        <a class="btn btn-success" asp-action="Crear">Crear Nuevo Piloto</a>
     </p>
 
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>Nombre Piloto</th>
-                <th>Apellido Piloto</th>
-                <th>Pais Piloto</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Pais</th>
                 <th>Fecha Nacimiento</th>
                 <th>Escuderia Piloto</th> 
                 <th>Acciones</th>
@@ -25,21 +25,15 @@
                     <td>@Html.DisplayFor(modelItem => item.ApellidoPiloto)</td>
                     <td>@Html.DisplayFor(modelItem => item.PaisPiloto)</td>
                     <td>@Html.DisplayFor(modelItem => item.FechaNacimiento)</td>
-                    <td>@Html.DisplayFor(modelItem => item.EscuderiaPiloto)</td>
+                    <td>@item.EscuderiaPiloto?.NombreEscuderia</td>
                 <td>
-                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.IdEscuderia">Editar</a>
-                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.IdEscuderia">Detalles</a>
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.IdEscuderia">Eliminar</a>
+                    <a class="btn btn-warning" asp-action="Editar" asp-route-id="@item.IdPiloto">Editar</a>
+                    <a class="btn btn-primary" asp-action="Detalles" asp-route-id="@item.IdPiloto">Detalles</a>
+                    <a class="btn btn-danger" href="#" onclick="if (confirm('¿Estás seguro de que quieres eliminar esta carrera?')) { location.href='@Url.Action("Eliminar", "Piloto", new { id = item.IdPiloto })'; }">Eliminar</a>
                 </td>
                 </tr>
             }
         </tbody>
-        
     </table>
-    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-    {
-    <div class="alert alert-danger">
-        @error.ErrorMessage
-    </div>
-    }
+    
 
