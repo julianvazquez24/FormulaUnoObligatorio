@@ -24,5 +24,7 @@ namespace FormulaUnoObligatorio.Models
         public int IdEscuderia { get; set; }
         public Escuderia? EscuderiaPiloto { get; set; }
 
+        public List<Resultado> Resultados { get; set; }
+
     }
 }
