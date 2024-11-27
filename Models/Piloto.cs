@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FormulaUnoObligatorio.Models
 {
@@ -24,5 +26,16 @@ namespace FormulaUnoObligatorio.Models
         public int IdEscuderia { get; set; }
         public Escuderia? EscuderiaPiloto { get; set; }
 
+        public List<Resultado>? Resultados { get; }
+
+        public Piloto() { }
+
+        public Piloto(string nombrePiloto) {
+            NombrePiloto = nombrePiloto;
+        }
+        public string AsOption(int? idSeleccionado)
+        {
+            return $"<option value='{IdPiloto}' {(IdPiloto == idSeleccionado ? " selected" : "")}>{NombrePiloto}</option>";
+        }
     }
 }

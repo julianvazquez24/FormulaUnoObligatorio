@@ -3,6 +3,7 @@ using FormulaUnoObligatorio.Models;
 using FormulaUnoObligatorio.Data;
 using System.Reflection.Metadata.Ecma335;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FormulaUnoObligatorio.Controllers
 {
@@ -38,6 +39,7 @@ namespace FormulaUnoObligatorio.Controllers
 
         public IActionResult Crear()
         {
+            ViewBag.Carreras = new SelectList(_context.Carreras, "IdCarrera", "NombreCarrera");
             return View();
         }
 

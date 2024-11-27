@@ -18,6 +18,7 @@ namespace FormulaUnoObligatorio.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Pilotos = _context.Pilotos;
             var appDbContext = _context.Pilotos.Include(p => p.EscuderiaPiloto);
              return View("Index", appDbContext.ToList());
         }
