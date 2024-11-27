@@ -1,0 +1,31 @@
+﻿@model FormulaUnoObligatorio.Models.Carrera
+
+<h2 class="text-center">Editar Carrera</h2>
+<hr />
+
+<form asp-action="Editar">
+    <input type="hidden" asp-for="IdCarrera" />
+
+    <div class="form-group">
+        <label asp-for="NombreCarrera" class="control-label"></label>
+        <input asp-for="NombreCarrera" class="form-control" aria-required="true" aria-describedby="nombreHelp" />
+        <span asp-validation-for="NombreCarrera" class="text-danger"></span>
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="CiudadCarrera" class="control-label"></label>
+        <input asp-for="CiudadCarrera" class="form-control" aria-describedby="sponsorHelp" />
+        <span asp-validation-for="CiudadCarrera" class="text-danger"></span>
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="FechaCarrera" class="control-label"></label>
+        <input asp-for="FechaCarrera" class="form-control" aria-describedby="sponsorHelp" />
+        <span asp-validation-for="FechaCarrera" class="text-danger"></span>
+    </div>
+    <br />
+    <div class="form-group mt-3">
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        <a asp-action="Index" class="btn btn-secondary ms-2">Volver al Listado</a>
+    </div>
+</form>

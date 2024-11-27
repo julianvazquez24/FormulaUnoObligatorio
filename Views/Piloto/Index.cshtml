@@ -29,7 +29,7 @@
                 <td>
                     <a class="btn btn-warning" asp-action="Editar" asp-route-id="@item.IdPiloto">Editar</a>
                     <a class="btn btn-primary" asp-action="Detalles" asp-route-id="@item.IdPiloto">Detalles</a>
-                    <a class="btn btn-danger" href="#" onclick="if (confirm('¿Estás seguro de que quieres eliminar esta carrera?')) { location.href='@Url.Action("Eliminar", "Piloto", new { id = item.IdPiloto })'; }">Eliminar</a>
+                    <a class="btn btn-danger" asp-action="Eliminar" asp-route-id="@item.IdPiloto">Eliminar</a>
                 </td>
                 </tr>
             }

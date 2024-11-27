@@ -99,9 +99,16 @@ namespace FormulaUnoObligatorio.Controllers
                 return NotFound();
             }
 
-            
-            ViewBag.Escuderia = new SelectList(_context.Escuderias, "IdEscuderia", "NombreEscuderia", piloto.IdEscuderia);
+            var maximoPilotos = _context.Pilotos.Count(p => p.IdEscuderia == piloto.IdEscuderia && p.IdPiloto != piloto.IdPiloto);
 
+            if (maximoPilotos >= 2)
+            {
+                ModelState.AddModelError(string.Empty, "No puede existir más de 2 pilotos por escudería.");
+                return View(piloto);
+            }
+
+            ViewBag.Escuderia = new SelectList(_context.Escuderias, "IdEscuderia", "NombreEscuderia", piloto.IdEscuderia);
+            
             return View(piloto);
         }
 
@@ -112,6 +119,15 @@ namespace FormulaUnoObligatorio.Controllers
             if (id != piloto.IdPiloto)
             {
                 return NotFound();
+            }
+
+            var maximoPilotos = _context.Pilotos.Count(p => p.IdEscuderia == piloto.IdEscuderia && p.IdPiloto != piloto.IdPiloto);
+
+            if (maximoPilotos >= 2)
+            {
+                ModelState.AddModelError(string.Empty, "No puede existir más de 2 pilotos por escudería.");
+               
+                ViewBag.Escuderia = new SelectList(_context.Escuderias, "IdEscuderia", "NombreEscuderia", piloto.IdEscuderia);
             }
 
             if (ModelState.IsValid)
