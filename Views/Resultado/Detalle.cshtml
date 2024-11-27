@@ -1,0 +1,21 @@
+﻿@model FormulaUnoObligatorio.Models.Resultado
+
+<h2 class="text-center mb-4">Detalles del Resultado</h2>
+<hr />
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h4>Resultado de la Carrera</h4>
+    </div>
+    <div class="card-body">
+        <p><strong>Carrera:</strong> @Model.CarreraResultado?.NombreCarrera</p>
+        <p><strong>Piloto:</strong> @Model.PilotoResultado?.NombrePiloto @Model.PilotoResultado?.ApellidoPiloto</p>
+        <p><strong>Posición de Salida:</strong> @Model.PosicionSalida</p>
+        <p><strong>Posición de Llegada:</strong> @Model.PosicionLlegada</p>
+    </div>
+</div>
+
+<div class="mt-4 text-center">
+    <a href="@Url.Action("Index", "Resultado")" class="btn btn-secondary">Volver al listado</a>
+</div>
+
