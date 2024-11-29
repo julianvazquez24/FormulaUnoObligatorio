@@ -1,4 +1,6 @@
-﻿<h2 class="text-center">Crear Nuevo Resultado</h2>
+﻿@model FormulaUnoObligatorio.Models.Resultado
+
+<h2 class="text-center">Crear Nuevo Resultado</h2>
 
 <div class="row">
     <div class="col-md-6">
@@ -6,19 +8,19 @@
             <div asp-validation-summary="All" class="text-danger" role="alert"></div>
 
             <div class="form-group">
-                <label>Carrera</label>
-                <select class="form-control" asp-items="ViewBag.IdCarrera"></select>
+                <label for="IdCarrera">Carrera</label>
+                <select class="form-control" asp-for="IdCarrera" asp-items="ViewBag.IdCarrera"></select>
             </div>
 
             <div class="form-group">
-                <label>Piloto</label>
-                <select class="form-control" asp-items="ViewBag.IdPilotos"></select>
+                <label for="IdPiloto">Piloto</label>
+                <select class="form-control" asp-for="IdPiloto" asp-items="ViewBag.IdPilotos"></select>
             </div>
 
             <div class="form-group">
-                <label>Posición de Salida</label>
-                <select class="form-control">
-                    @foreach (int posicion in ViewBag.PosicionesSalida)
+                <label for="PosicionSalida">Posición de Salida</label>
+                <select class="form-control" asp-for="PosicionSalida">
+                    @foreach (var posicion in ViewBag.PosicionesSalida)
                     {
                         <option value="@posicion">@posicion</option>
                     }
@@ -26,9 +28,9 @@
             </div>
 
             <div class="form-group">
-                <label>Posición de Llegada</label>
-                <select class="form-control">
-                    @foreach (int posicion in ViewBag.PosicionesLlegada)
+                <label for="PosicionLlegada">Posición de Llegada</label>
+                <select class="form-control" asp-for="PosicionLlegada">
+                    @foreach (var posicion in ViewBag.PosicionesLlegada)
                     {
                         <option value="@posicion">@posicion</option>
                     }

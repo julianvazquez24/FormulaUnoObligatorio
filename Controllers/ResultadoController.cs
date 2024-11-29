@@ -2,6 +2,7 @@
 using FormulaUnoObligatorio.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace FormulaUnoObligatorio.Controllers
 {
@@ -14,10 +15,16 @@ namespace FormulaUnoObligatorio.Controllers
         }
         public IActionResult Index()
         {
-            return View("Index", _context.Resultados.ToList()); ;
+            var resultados = _context.Resultados
+                                     .Include(r => r.CarreraResultado) 
+                                     .Include(r => r.PilotoResultado)  
+                                     .ToList();  
+
+            return View(resultados);  
         }
 
-        public IActionResult Crear( int? idCarrera)
+
+        public IActionResult Crear(int? idCarrera)
         {
             ViewBag.IdCarrera = new SelectList(_context.Carreras, "IdCarrera", "NombreCarrera");
             ViewBag.IdPilotos = new SelectList(_context.Pilotos, "IdPiloto", "NombrePiloto");
@@ -26,9 +33,9 @@ namespace FormulaUnoObligatorio.Controllers
 
             if (idCarrera.HasValue)
             {
-            List <Resultado> resultadosOcupados = _context.Resultados
-                    .Where(resultado => resultado.IdCarrera == idCarrera.Value)
-                    .ToList();
+                List<Resultado> resultadosOcupados = _context.Resultados
+                        .Where(resultado => resultado.IdCarrera == idCarrera.Value)
+                        .ToList();
 
 
                 List<int> posicionesOcupadasSalida = resultadosOcupados
@@ -38,7 +45,7 @@ namespace FormulaUnoObligatorio.Controllers
                     .Select(resultado => resultado.PosicionLlegada).ToList();
 
                 ViewBag.PosicionesSalida = Enumerable.Range(1, 20).Except(posicionesOcupadasSalida).ToList();
-                ViewBag.PosicionesLlegada= Enumerable.Range(1, 20).Except(posicionesOcupadasLlegada).ToList();
+                ViewBag.PosicionesLlegada = Enumerable.Range(1, 20).Except(posicionesOcupadasLlegada).ToList();
             }
             return View();
         }
@@ -49,26 +56,15 @@ namespace FormulaUnoObligatorio.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<Resultado> resultadosExistentes = _context.Resultados
-                    .Where(resultado => resultado.IdCarrera == resultado.IdCarrera).ToList();
-
-                if(resultadosExistentes.Any( resultado => resultado.PosicionSalida == resultado.PosicionSalida))
-                {
-                    ModelState.AddModelError("PosicionSalida", "La posicion de salida ya esta ocupada");
-                }
-                if (resultadosExistentes.Any(resultado => resultado.PosicionLlegada == resultado.PosicionLlegada))
-                {
-                    ModelState.AddModelError("PosicionLlegada", "PosicionLlegada ya esta ocupada");
-                }
-                if (ModelState.IsValid)
-                {
-                    _context.Add(resultado);
-                    _context.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-
-
+                _context.Add(resultado);
+                _context.SaveChanges();
+                return RedirectToAction("Index"); 
             }
+
+           
+            ViewBag.IdCarrera = new SelectList(_context.Carreras, "IdCarrera", "NombreCarrera", resultado.IdCarrera);
+            ViewBag.IdPilotos = new SelectList(_context.Pilotos, "IdPiloto", "NombrePiloto", resultado.IdPiloto);
+
             return View(resultado);
         }
 

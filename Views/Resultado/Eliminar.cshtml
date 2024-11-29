@@ -1,0 +1,21 @@
+﻿@model FormulaUnoObligatorio.Models.Resultado
+
+<h2 class="text-center mb-4">Eliminar Resultado</h2>
+<hr />
+<h3>¿Estás seguro de que quieres eliminar este resultado?</h3>
+<br />
+
+<div>
+    <h4>Resultado de la carrera: @Model.CarreraResultado?.NombreCarrera</h4>
+    <br />
+    <p><strong>Piloto:</strong> @Model.PilotoResultado?.NombrePiloto @Model.PilotoResultado?.ApellidoPiloto</p>
+    <p><strong>Posición de Salida:</strong> @Model.PosicionSalida</p>
+    <p><strong>Posición de Llegada:</strong> @Model.PosicionLlegada</p>
+</div>
+
+<form method="post">
+    <input type="hidden" asp-for="IdResultado" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary ms-2">Volver al Listado</a>
+</form>
+
