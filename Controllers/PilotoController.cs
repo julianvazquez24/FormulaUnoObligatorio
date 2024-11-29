@@ -49,7 +49,7 @@ namespace FormulaUnoObligatorio.Controllers
         // Get Create
         public IActionResult Crear()
         {
-            ViewBag.IdEscuderia= new SelectList(_context.Escuderias, "IdEscuderia", "NombreEscuderia");
+           ViewBag.IdEscuderia= new SelectList(_context.Escuderias, "IdEscuderia", "NombreEscuderia");
             return View();
         }
 

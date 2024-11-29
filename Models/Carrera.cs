@@ -11,7 +11,7 @@ namespace FormulaUnoObligatorio.Models
         public string CiudadCarrera { get; set; }
         public DateOnly FechaCarrera { get; set; }
 
-        public List<Resultado> Resultados { get; set; }
+        public List<Resultado>? Resultados { get; set; }
     }
 }
 
