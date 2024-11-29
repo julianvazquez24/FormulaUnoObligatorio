@@ -2,9 +2,13 @@
 
 <h2>Listado de Pilotos</h2>
 
+@if (ViewBag.HabilitarNuevoPiloto = true)
+{
     <p>
         <a class="btn btn-success" asp-action="Crear">Crear Nuevo Piloto</a>
     </p>
+}
+
 
     <table class="table table-hover">
         <thead>

@@ -30,23 +30,6 @@ namespace FormulaUnoObligatorio.Controllers
             ViewBag.IdPilotos = new SelectList(_context.Pilotos, "IdPiloto", "NombrePiloto");
             ViewBag.PosicionesSalida = Enumerable.Range(1, 20).ToList();
             ViewBag.PosicionesLlegada = Enumerable.Range(1, 20).ToList();
-
-            if (idCarrera.HasValue)
-            {
-                List<Resultado> resultadosOcupados = _context.Resultados
-                        .Where(resultado => resultado.IdCarrera == idCarrera.Value)
-                        .ToList();
-
-
-                List<int> posicionesOcupadasSalida = resultadosOcupados
-                    .Select(resultado => resultado.PosicionSalida).ToList();
-
-                List<int> posicionesOcupadasLlegada = resultadosOcupados
-                    .Select(resultado => resultado.PosicionLlegada).ToList();
-
-                ViewBag.PosicionesSalida = Enumerable.Range(1, 20).Except(posicionesOcupadasSalida).ToList();
-                ViewBag.PosicionesLlegada = Enumerable.Range(1, 20).Except(posicionesOcupadasLlegada).ToList();
-            }
             return View();
         }
 
@@ -56,14 +39,44 @@ namespace FormulaUnoObligatorio.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(resultado);
-                _context.SaveChanges();
-                return RedirectToAction("Index"); 
+                if(!_context.Carreras.Any(carrera => carrera.IdCarrera == resultado.IdCarrera))
+                {
+                    ModelState.AddModelError("IdCarrera", " La carrera seleccionada no existe ");
+                }
+                
+                var resultadosOcupados = _context.Resultados
+                    .Where(resultados => resultados.IdCarrera == resultado.IdCarrera)
+                    .ToList();
+
+                if (resultadosOcupados.Any(r => r.PosicionSalida == resultado.PosicionSalida))
+                {
+                    ModelState.AddModelError("PosicionSalida", "La posición de salida ya está ocupada.");
+                }
+                if (resultadosOcupados.Any(r => r.PosicionLlegada == resultado.PosicionLlegada))
+                {
+                    ModelState.AddModelError("PosicionLlegada", "La posición de llegada ya está ocupada.");
+                }
+
+                if (ModelState.IsValid)
+                {
+                    _context.Add(resultado);
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                ViewBag.IdCarrera = new SelectList(_context.Carreras, "IdCarrera", "NombreCarrera", resultado.IdCarrera);
+                ViewBag.IdPilotos = new SelectList(_context.Pilotos, "IdPiloto", "NombrePiloto", resultado.IdPiloto);
+                ViewBag.PosicionesSalida = Enumerable.Range(1, 20).ToList();
+                ViewBag.PosicionesLlegada = Enumerable.Range(1, 20).ToList();
+
+                return View(resultado);
+
+
+
             }
 
            
-            ViewBag.IdCarrera = new SelectList(_context.Carreras, "IdCarrera", "NombreCarrera", resultado.IdCarrera);
-            ViewBag.IdPilotos = new SelectList(_context.Pilotos, "IdPiloto", "NombrePiloto", resultado.IdPiloto);
+
 
             return View(resultado);
         }
@@ -84,5 +97,34 @@ namespace FormulaUnoObligatorio.Controllers
             }
             return View(resultado);
         }
+
+        public IActionResult Eliminar(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var resultado = _context.Resultados
+                .Include(r => r.CarreraResultado)
+                .Include(r => r.PilotoResultado)
+                .FirstOrDefault(m => m.IdResultado == id);
+            if (resultado == null)
+            {
+                return NotFound();
+            }
+            return View(resultado);
+        }
+        [HttpPost, ActionName("Eliminar")]
+        [ValidateAntiForgeryToken]
+        public IActionResult EliminarConfirmada(int id)
+        {
+            var resultado = _context.Resultados.Find(id);
+            if (resultado != null)
+            {
+                _context.Resultados.Remove(resultado);
+                _context.SaveChanges();
+            }
+            return RedirectToAction(nameof(Index));
+        }   
     }
 }

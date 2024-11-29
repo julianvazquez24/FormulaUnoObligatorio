@@ -15,6 +15,7 @@ namespace FormulaUnoObligatorio.Controllers
         }
         public IActionResult Index()
         {
+            ViewBag.HabilitarNuevaEscuderia = ContarEscuderias();
            return View(_context.Escuderias.ToList());
         }
 
@@ -136,6 +137,17 @@ namespace FormulaUnoObligatorio.Controllers
         public bool EscuderiaExiste(int idEscuderia)
         {
             return _context.Escuderias.Any(e => e.IdEscuderia == idEscuderia);
+        }
+
+        private bool ContarEscuderias()
+        {
+            if (_context.Escuderias.Count() == 10)
+            {
+                return false;
+            } else
+            {
+                return true;
+            }            
         }
     }
 }

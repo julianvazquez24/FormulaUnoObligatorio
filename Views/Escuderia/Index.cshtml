@@ -2,9 +2,13 @@
 
 <h2>Listado de Escuderias</h2>
 
-<p>
-    <a class="btn btn-success" asp-action="Crear">Crear Escuderia</a>
-</p>
+@if (ViewBag.HabilitarNuevaEscuderia = true)
+{
+    <p>
+        <a class="btn btn-success" asp-action="Crear">Crear Escuderia</a>
+    </p>
+}
+
 
 <table class="table table-hover">
     <thead>

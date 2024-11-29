@@ -18,6 +18,7 @@ namespace FormulaUnoObligatorio.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.HabilitarNuevoPiloto = ContarPilotos();
             ViewBag.Pilotos = _context.Pilotos;
             var appDbContext = _context.Pilotos.Include(p => p.EscuderiaPiloto);
              return View("Index", appDbContext.ToList());
@@ -198,6 +199,18 @@ namespace FormulaUnoObligatorio.Controllers
         public bool PilotoExiste(int idPiloto)
         {
             return _context.Pilotos.Any(e => e.IdPiloto == idPiloto);
+        }
+
+        private bool ContarPilotos()
+        {
+            if (_context.Pilotos.Count() == 20)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }
