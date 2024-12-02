@@ -116,6 +116,8 @@ namespace FormulaUnoObligatorio.Controllers
         }
         [HttpPost, ActionName("Eliminar")]
         [ValidateAntiForgeryToken]
+       
+        
         public IActionResult EliminarConfirmada(int id)
         {
             var resultado = _context.Resultados.Find(id);
@@ -125,6 +127,79 @@ namespace FormulaUnoObligatorio.Controllers
                 _context.SaveChanges();
             }
             return RedirectToAction(nameof(Index));
-        }   
+        }
+
+
+        public IActionResult Editar(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var resultado = _context.Resultados.Find(id);
+            if (resultado == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.NombreCarrera = _context.Carreras
+                .Where(c => c.IdCarrera == resultado.IdCarrera)
+                .Select(c => c.NombreCarrera)
+                .FirstOrDefault();
+
+            ViewBag.NombrePiloto = _context.Pilotos
+                .Where(p => p.IdPiloto == resultado.IdPiloto)
+                .Select(p => p.NombrePiloto)
+                .FirstOrDefault();
+
+            ViewBag.PosicionesSalida = Enumerable.Range(1, 20).ToList();
+            ViewBag.PosicionesLlegada = Enumerable.Range(1, 20).ToList();
+
+            return View(resultado);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Editar(int idResultado, [Bind("IdResultado, IdCarrera, IdPiloto, PosicionSalida, PosicionLlegada")] Resultado resultado)
+        {
+            if (idResultado != resultado.IdResultado)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(resultado);
+                    _context.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ResultadoExiste(resultado.IdResultado))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+
+            ViewBag.IdCarrera = new SelectList(_context.Carreras, "IdCarrera", "NombreCarrera", resultado.IdCarrera);
+            ViewBag.IdPilotos = new SelectList(_context.Pilotos, "IdPiloto", "NombrePiloto", resultado.IdPiloto);
+            ViewBag.PosicionesSalida = Enumerable.Range(1, 20).ToList();
+            ViewBag.PosicionesLlegada = Enumerable.Range(1, 20).ToList();
+
+            return View(resultado);
+        }
+
+        public bool ResultadoExiste(int idResultado)
+        {
+            return _context.Resultados.Any(c => c.IdResultado == idResultado);
+        }
     }
 }

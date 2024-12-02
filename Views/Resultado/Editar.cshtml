@@ -1,41 +1,51 @@
 ﻿@model FormulaUnoObligatorio.Models.Resultado
 
 <h2 class="text-center">Editar Resultado</h2>
-<hr />
 
-<form asp-action="Editar">
-    <input type="hidden" asp-for="IdResultado" />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Editar" aria-labelledby="form-title">
+            <div asp-validation-summary="All" class="text-danger" role="alert"></div>
 
-    <div class="form-group">
-        <label asp-for="IdCarrera" class="control-label"></label>
-        <select asp-for="IdCarrera" class="form-control" asp-items="ViewBag.IdCarrera">
-            <option value="">Seleccione una Carrera</option>
-        </select>
-        <span asp-validation-for="IdCarrera" class="text-danger"></span>
+            
+            <input type="hidden" asp-for="IdResultado" />
+
+            <div class="form-group">
+                <label for="IdCarrera">Carrera</label>
+                <input type="text" class="form-control" value="@ViewBag.NombreCarrera" disabled />
+                <input type="hidden" asp-for="IdCarrera" />
+            </div>
+
+            <div class="form-group">
+                <label for="IdPiloto">Piloto</label>
+                <input type="text" class="form-control" value="@ViewBag.NombrePiloto" disabled />
+                <input type="hidden" asp-for="IdPiloto" />
+            </div>
+
+            <div class="form-group">
+                <label for="PosicionSalida">Posición de Salida</label>
+                <select class="form-control" asp-for="PosicionSalida">
+                    @foreach (var posicion in ViewBag.PosicionesSalida)
+                    {
+                        <option value="@posicion">@posicion</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="PosicionLlegada">Posición de Llegada</label>
+                <select class="form-control" asp-for="PosicionLlegada">
+                    @foreach (var posicion in ViewBag.PosicionesLlegada)
+                    {
+                        <option value="@posicion">@posicion</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary">Editar</button>
+                <a asp-action="Index" class="btn btn-secondary ms-2">Volver al Listado</a>
+            </div>
+        </form>
     </div>
-
-    <div class="form-group">
-        <label asp-for="IdPiloto" class="control-label"></label>
-        <select asp-for="IdPiloto" class="form-control" asp-items="ViewBag.IdPilotos">
-            <option value="">Seleccione un Piloto</option>
-        </select>
-        <span asp-validation-for="IdPiloto" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="PosicionSalida" class="control-label"></label>
-        <input asp-for="PosicionSalida" class="form-control" />
-        <span asp-validation-for="PosicionSalida" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="PosicionLlegada" class="control-label"></label>
-        <input asp-for="PosicionLlegada" class="form-control" />
-        <span asp-validation-for="PosicionLlegada" class="text-danger"></span>
-    </div>
-
-    <div class="form-group mt-3">
-        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-        <a asp-action="Index" class="btn btn-secondary ms-2">Volver al Listado</a>
-    </div>
-</form>
+</div>

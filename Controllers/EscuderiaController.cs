@@ -105,6 +105,7 @@ namespace FormulaUnoObligatorio.Controllers
             }
             return View(escuderia);
         }
+        
         public IActionResult Eliminar(int? id)
         {
             if(id == null)
