@@ -61,6 +61,7 @@ namespace FormulaUnoObligatorio.Controllers
                 {
                     _context.Add(resultado);
                     _context.SaveChanges();
+                    ActualizarPuntajesPilotos();
                     return RedirectToAction("Index");
                 }
 
@@ -174,6 +175,7 @@ namespace FormulaUnoObligatorio.Controllers
                 {
                     _context.Update(resultado);
                     _context.SaveChanges();
+                    ActualizarPuntajesPilotos();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -189,6 +191,8 @@ namespace FormulaUnoObligatorio.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+
+
             ViewBag.IdCarrera = new SelectList(_context.Carreras, "IdCarrera", "NombreCarrera", resultado.IdCarrera);
             ViewBag.IdPilotos = new SelectList(_context.Pilotos, "IdPiloto", "NombrePiloto", resultado.IdPiloto);
             ViewBag.PosicionesSalida = Enumerable.Range(1, 20).ToList();
@@ -201,5 +205,40 @@ namespace FormulaUnoObligatorio.Controllers
         {
             return _context.Resultados.Any(c => c.IdResultado == idResultado);
         }
+
+        private void ActualizarPuntajesPilotos()
+        {
+            var pilotos = _context.Pilotos.Include(p => p.Resultados).ToList();
+
+            foreach (var piloto in pilotos)
+            {
+                piloto.PuntajePiloto = piloto.Resultados
+                    .Where(r => r.PosicionLlegada > 0) // Asegurarse de que tengan posición válida
+                    .Sum(r => CalcularPuntaje(r.PosicionLlegada));
+
+                _context.Pilotos.Update(piloto);
+            }
+
+            _context.SaveChanges();
+        }
+
+        private int CalcularPuntaje(int posicion)
+        {
+            switch (posicion)
+            {
+                case 1: return 25;
+                case 2: return 18;
+                case 3: return 15;
+                case 4: return 12;
+                case 5: return 10;
+                case 6: return 8;
+                case 7: return 6;
+                case 8: return 4;
+                case 9: return 2;
+                case 10: return 1;
+                default: return 0;
+            }
+        }
+
     }
 }

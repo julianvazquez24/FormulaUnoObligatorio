@@ -34,7 +34,7 @@ namespace FormulaUnoObligatorio.Data
                 .WithMany(carrera => carrera.Resultados)
                 .HasForeignKey(resultado => resultado.IdCarrera);
 
-            // relacion entre resultados y piloto, piloto tiene un resultado y resultado tiene N pilotos 
+            // relacion entre resultados y piloto, resultado tiene un piloto y piloto tiene N resultados 
             modelBuilder.Entity<Resultado>()
                 .HasOne(resultado => resultado.PilotoResultado)
                 .WithMany(piloto => piloto.Resultados)
