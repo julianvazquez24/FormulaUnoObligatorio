@@ -17,7 +17,8 @@
                 <th>Apellido</th>
                 <th>Pais</th>
                 <th>Fecha Nacimiento</th>
-                <th>Escuderia Piloto</th> 
+                <th>Escuderia Piloto</th>
+                <th>Puntaje</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -30,6 +31,8 @@
                     <td>@Html.DisplayFor(modelItem => item.PaisPiloto)</td>
                     <td>@Html.DisplayFor(modelItem => item.FechaNacimiento)</td>
                     <td>@item.EscuderiaPiloto?.NombreEscuderia</td>
+                    <td>@Html.DisplayFor(modelItem => item.Puntaje)</td>
+
                 <td>
                     <a class="btn btn-warning" asp-action="Editar" asp-route-id="@item.IdPiloto">Editar</a>
                     <a class="btn btn-primary" asp-action="Detalles" asp-route-id="@item.IdPiloto">Detalles</a>
