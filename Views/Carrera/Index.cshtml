@@ -23,8 +23,8 @@
                 <td>@Html.DisplayFor(modelItem => item.CiudadCarrera)</td>
                 <td>@Html.DisplayFor(modelItem => item.FechaCarrera)</td>
                 <td>
-                    <a class="btn btn-warning" asp-action="Editar" asp-route-id="@item.IdCarrera">Editar</a>
                     <a class="btn btn-primary" asp-action="Detalles" asp-route-id="@item.IdCarrera">Detalles</a>
+                    <a class="btn btn-warning" asp-action="Editar" asp-route-id="@item.IdCarrera">Editar</a>
                     <a class="btn btn-danger" asp-action="Eliminar" asp-route-id="@item.IdCarrera">Eliminar</a>
                 </td>
             </tr>

@@ -123,6 +123,7 @@ namespace FormulaUnoObligatorio.Controllers
             return View(escuderia);
         }
 
+
         [HttpPost, ActionName("Eliminar")]
         [ValidateAntiForgeryToken]
         public IActionResult EliminarConfirmada(int id)

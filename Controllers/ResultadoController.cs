@@ -28,9 +28,29 @@ namespace FormulaUnoObligatorio.Controllers
         {
             ViewBag.IdCarrera = new SelectList(_context.Carreras, "IdCarrera", "NombreCarrera");
             ViewBag.IdPilotos = new SelectList(_context.Pilotos, "IdPiloto", "NombrePiloto");
-            ViewBag.PosicionesSalida = Enumerable.Range(1, 20).ToList();
-            ViewBag.PosicionesLlegada = Enumerable.Range(1, 20).ToList();
+
+            if(idCarrera != null){
+                var resultadosExistentes = _context.Resultados
+                .Where(r => r.IdCarrera == idCarrera.Value)
+                .ToList();
+
+                var posicionesOcupadasSalida = resultadosExistentes.Select(r => r.PosicionSalida).ToList();
+                var posicionesOcupadasLlegada = resultadosExistentes.Select(r => r.PosicionLlegada).ToList();
+
+                ViewBag.PosicionesSalida = Enumerable.Range(1, 20).Except(posicionesOcupadasSalida).ToList();
+                ViewBag.PosicionesLlegada = Enumerable.Range(1, 20).Except(posicionesOcupadasLlegada).ToList();
+
+            }
+            else
+            {
+                ViewBag.PosicionesSalida = Enumerable.Range(1, 20).ToList();
+                ViewBag.PosicionesLlegada = Enumerable.Range(1, 20).ToList();
+            }
+
+
+
             return View();
+
         }
 
         [HttpPost]
@@ -39,15 +59,20 @@ namespace FormulaUnoObligatorio.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(!_context.Carreras.Any(carrera => carrera.IdCarrera == resultado.IdCarrera))
+                if (!_context.Carreras.Any(carrera => carrera.IdCarrera == resultado.IdCarrera))
                 {
-                    ModelState.AddModelError("IdCarrera", " La carrera seleccionada no existe ");
+                    ModelState.AddModelError("IdCarrera", "La carrera seleccionada no existe.");
                 }
-                
+
                 var resultadosOcupados = _context.Resultados
-                    .Where(resultados => resultados.IdCarrera == resultado.IdCarrera)
+                    .Where(r => r.IdCarrera == resultado.IdCarrera)
                     .ToList();
 
+
+                if (_context.Resultados.Any(r => r.IdCarrera == resultado.IdCarrera && r.IdPiloto == resultado.IdPiloto))
+                {
+                    ModelState.AddModelError("IdPiloto", "El piloto ya tiene un resultado registrado para esta carrera.");
+                }
                 if (resultadosOcupados.Any(r => r.PosicionSalida == resultado.PosicionSalida))
                 {
                     ModelState.AddModelError("PosicionSalida", "La posición de salida ya está ocupada.");
@@ -64,23 +89,13 @@ namespace FormulaUnoObligatorio.Controllers
                     ActualizarPuntajesPilotos();
                     return RedirectToAction("Index");
                 }
-
-                ViewBag.IdCarrera = new SelectList(_context.Carreras, "IdCarrera", "NombreCarrera", resultado.IdCarrera);
-                ViewBag.IdPilotos = new SelectList(_context.Pilotos, "IdPiloto", "NombrePiloto", resultado.IdPiloto);
-                ViewBag.PosicionesSalida = Enumerable.Range(1, 20).ToList();
-                ViewBag.PosicionesLlegada = Enumerable.Range(1, 20).ToList();
-
-                return View(resultado);
-
-
-
             }
-
-           
-
 
             return View(resultado);
         }
+
+
+
 
         public IActionResult Detalles(int? id)
         {
@@ -213,7 +228,7 @@ namespace FormulaUnoObligatorio.Controllers
             foreach (var piloto in pilotos)
             {
                 piloto.PuntajePiloto = piloto.Resultados
-                    .Where(r => r.PosicionLlegada > 0) // Asegurarse de que tengan posición válida
+                    .Where(r => r.PosicionLlegada > 0) // nos fijamos que si o si tenga una posicion de llegada
                     .Sum(r => CalcularPuntaje(r.PosicionLlegada));
 
                 _context.Pilotos.Update(piloto);
