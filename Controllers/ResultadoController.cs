@@ -113,7 +113,6 @@ namespace FormulaUnoObligatorio.Controllers
             }
             return View(resultado);
         }
-
         public IActionResult Eliminar(int? id)
         {
             if (id == null)
@@ -132,8 +131,6 @@ namespace FormulaUnoObligatorio.Controllers
         }
         [HttpPost, ActionName("Eliminar")]
         [ValidateAntiForgeryToken]
-       
-        
         public IActionResult EliminarConfirmada(int id)
         {
             var resultado = _context.Resultados.Find(id);

@@ -10,8 +10,9 @@
     <thead>
         <tr>
             <th>Nombre</th>
-            <th>Cuidad</th>
+            <th>Ciudad</th>
             <th>Fecha</th>
+            <th>Piloto</th> 
             <th>Acciones</th>
         </tr>
     </thead>
@@ -22,6 +23,7 @@
                 <td>@Html.DisplayFor(modelItem => item.NombreCarrera)</td>
                 <td>@Html.DisplayFor(modelItem => item.CiudadCarrera)</td>
                 <td>@Html.DisplayFor(modelItem => item.FechaCarrera)</td>
+                <td>@Html.DisplayFor(modelItem => item.Piloto.NombrePiloto)</td> 
                 <td>
                     <a class="btn btn-primary" asp-action="Detalles" asp-route-id="@item.IdCarrera">Detalles</a>
                     <a class="btn btn-warning" asp-action="Editar" asp-route-id="@item.IdCarrera">Editar</a>

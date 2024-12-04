@@ -10,7 +10,14 @@ namespace FormulaUnoObligatorio.Models
         public string NombreCarrera { get; set; }
         public string CiudadCarrera { get; set; }
         public DateOnly FechaCarrera { get; set; }
+        public int IdPiloto { get; set; }
 
+        public Piloto? Piloto { get; set; }
+        public int PosicionCarrera { get; set; }
+
+        public int PuntosCarrera { get; set; }
+
+      
         public List<Resultado>? Resultados { get; set; }
     }
 }
