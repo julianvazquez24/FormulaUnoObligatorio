@@ -13,9 +13,6 @@ namespace FormulaUnoObligatorio.Models
         public int IdPiloto { get; set; }
 
         public Piloto? Piloto { get; set; }
-        public int PosicionCarrera { get; set; }
-
-        public int PuntosCarrera { get; set; }
         public List<Resultado>? Resultados { get; set; }
     }
 }
