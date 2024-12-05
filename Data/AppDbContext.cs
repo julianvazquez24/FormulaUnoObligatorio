@@ -1,7 +1,6 @@
 ﻿using FormulaUnoObligatorio.Models;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace FormulaUnoObligatorio.Data
 {
     public class AppDbContext : DbContext
@@ -15,7 +14,7 @@ namespace FormulaUnoObligatorio.Data
 
         public DbSet<Resultado> Resultados { get; set; }
 
-
+      
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Llamada al método base para asegurarse de que la configuración predeterminada de EF se aplique

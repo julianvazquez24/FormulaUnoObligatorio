@@ -35,19 +35,16 @@ namespace FormulaUnoObligatorio.Models
 
         public int PuntajePiloto { get; set; }
         public List<Resultado>? Resultados { get; }
-
+        public int CarrerasGanadas { get; set; }
         public Piloto() { }
 
-        public Piloto(string nombrePiloto) {
+        public Piloto(string nombrePiloto)
+        {
             NombrePiloto = nombrePiloto;
         }
         public string AsOption(int? idSeleccionado)
         {
             return $"<option value='{IdPiloto}' {(IdPiloto == idSeleccionado ? " selected" : "")}>{NombrePiloto}</option>";
         }
-
-
-
-
     }
 }

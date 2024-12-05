@@ -2,10 +2,9 @@
 
 namespace FormulaUnoObligatorio.Models
 {
-    public class Estadisticas
+    public class Estadistica
     {
         [Key]
-        public int IdEstadisticas{get; set;}
-
+        public int IdEstadistica{get; set;}
     }
 }

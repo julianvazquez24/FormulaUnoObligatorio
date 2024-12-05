@@ -14,9 +14,7 @@
         <tbody>
             @if (ViewBag.TablaPosicionesPilotos != null && ViewBag.TablaPosicionesPilotos.Count > 0)
             {
-
                 foreach (var piloto in ViewBag.TablaPosicionesPilotos)
-
                 {
                     <tr>
                         <td>@piloto.NombrePiloto</td>
@@ -51,9 +49,7 @@
         <tbody>
             @if (ViewBag.HistorialDeCarrerasDeUnPiloto != null && ViewBag.HistorialDeCarrerasDeUnPiloto.Count > 0)
             {
-
                 foreach (var carrera in ViewBag.HistorialDeCarrerasDeUnPiloto)
-
                 {
                     <tr>
                         <td>@carrera.NombreCarrera</td>
@@ -71,14 +67,14 @@
             }
         </tbody>
     </table>
+    
 
 
 
+    
 
 
-
-
-    <!--Tabla de Posiciones de Escuderías-->
+<!--Tabla de Posiciones de Escuderías-->
     <h2 class="mt-5">Tabla de Posiciones de Escuderías</h2>
 
     <table class="table table-striped table-bordered">
@@ -92,13 +88,9 @@
         <tbody>
             @if (ViewBag.TablaPosicionesEscuderias != null && ViewBag.TablaPosicionesEscuderias.Count > 0)
             {
-
                 int posicion = 1;
-
-
-
+                
                 foreach (var escuderia in ViewBag.TablaPosicionesEscuderias)
-
                 {
                     <tr>
                         <td>@posicion</td>
@@ -106,7 +98,6 @@
                         <td>@escuderia.PuntosTotales</td>
                     </tr>
                     posicion++;
-
                 }
             }
             else
@@ -121,82 +112,78 @@
 
 
 
-    <!--Historial de Carreras de una Escudería-->
-    <h2 class="mt-5">Historial de Carreras de la Escudería</h2>
+<!--Historial de Carreras de una Escudería-->
+<h2 class="mt-5">Historial de Carreras de la Escudería</h2>
 
-    <button type="button" class="btn btn-outline-dark">Escuderias</button>
-    <br />
-    <table class="table table-striped table-bordered">
-        <br />
-        <thead class="table-dark">
-            <tr>
-                <th>Fecha</th>
-                <th>Nombre de la Carrera</th>
-                <th>Piloto</th>
-                <th>Posición</th>
-                <th>Puntaje</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (ViewBag.HistorialDeCarrerasDeUnaEscuderia != null && ViewBag.HistorialDeCarrerasDeUnaEscuderia.Count > 0)
-            {
-
-                foreach (var carrera in ViewBag.HistorialDeCarrerasDeUnaEscuderia)
-
-                {
-                    <tr>
-                        <td>@carrera.NombreCarrera</td>
-                        <td>@carrera.FechaCarrera.ToShortDateString()</td>
-                        <td>@carrera.Piloto.NombrePiloto</td>
-                        <td>@carrera.PosicionCarrera</td>
-                        <td>@carrera.PuntosCarrera</td>
-                    </tr>
-                }
-            }     
-            else          
+<button type="button" class="btn btn-outline-dark">Escuderias</button>
+<br />
+<table class="table table-striped table-bordered">
+   <br />
+    <thead class="table-dark">
+        <tr>
+            <th>Fecha</th>
+            <th>Nombre de la Carrera</th>
+            <th>Piloto</th>
+            <th>Posición</th>
+            <th>Puntaje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (ViewBag.HistorialDeCarrerasDeUnaEscuderia != null && ViewBag.HistorialDeCarrerasDeUnaEscuderia.Count > 0)
+        {
+            foreach (var carrera in ViewBag.HistorialDeCarrerasDeUnaEscuderia)
             {
                 <tr>
-                    <td colspan="5" class="text-center">No hay datos disponibles</td>
+                    <td>@carrera.NombreCarrera</td>
+                    <td>@carrera.FechaCarrera.ToShortDateString()</td>
+                    <td>@carrera.Piloto.NombrePiloto</td> 
+                    <td>@carrera.PosicionCarrera</td>
+                    <td>@carrera.PuntosCarrera</td>
                 </tr>
             }
-        </tbody>
-    </table>
-
-
-    <!--Carreras ganadas-->
-    <h2 class="mt-5">Carreras Ganadas</h2>
-
-    <table class="table table-striped table-bordered">
-        <thead class="table-dark">
+        }
+        else
+        {
             <tr>
-                <th>Posición</th>
-                <th>Piloto</th>
-                <th>Cantidad de Primeros Lugares</th>
+                <td colspan="5" class="text-center">No hay datos disponibles</td>
             </tr>
-        </thead>
-        <tbody>
-            @if (ViewBag.PilotosConMasPrimerosLugares != null && ViewBag.PilotosConMasPrimerosLugares.Count > 0)
-            {
+        }
+    </tbody>
+</table>
 
-                int posicion = 1;
 
-                foreach (var piloto in ViewBag.PilotosConMasPrimerosLugares)
+<!--Carreras ganadas-->
+<h2 class="mt-5">Carreras Ganadas</h2>
 
-                {
-                    <tr>
-                        <td>@posicion</td>
-                        <td>@piloto.NombrePiloto</td>
-                        <td>@piloto.PrimerosLugares</td>
-                    </tr>
-                    posicion++;
-
-                }
-            }
-            else
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Posición</th>
+            <th>Piloto</th>
+            <th>Cantidad de Primeros Lugares</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (ViewBag.PilotosConMasPrimerosLugares != null && ViewBag.PilotosConMasPrimerosLugares.Count > 0)
+        {
+            int posicion = 1;
+            foreach (var piloto in ViewBag.PilotosConMasPrimerosLugares)
             {
                 <tr>
-                    <td colspan="3" class="text-center">No hay datos disponibles</td>
+                    <td>@posicion</td>
+                    <td>@piloto.NombrePiloto</td>
+                    <td>@piloto.PrimerosLugares</td>
                 </tr>
+                posicion++;
             }
-        </tbody>
-    </table>
+        }
+        else
+        {
+            <tr>
+                <td colspan="3" class="text-center">No hay datos disponibles</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

@@ -46,11 +46,7 @@ namespace FormulaUnoObligatorio.Controllers
                 ViewBag.PosicionesSalida = Enumerable.Range(1, 20).ToList();
                 ViewBag.PosicionesLlegada = Enumerable.Range(1, 20).ToList();
             }
-
-
-
             return View();
-
         }
 
         [HttpPost]
@@ -93,10 +89,7 @@ namespace FormulaUnoObligatorio.Controllers
 
             return View(resultado);
         }
-
-
-
-
+        
         public IActionResult Detalles(int? id)
         {
             if (id == null)
@@ -113,7 +106,6 @@ namespace FormulaUnoObligatorio.Controllers
             }
             return View(resultado);
         }
-
         public IActionResult Eliminar(int? id)
         {
             if (id == null)
@@ -132,8 +124,6 @@ namespace FormulaUnoObligatorio.Controllers
         }
         [HttpPost, ActionName("Eliminar")]
         [ValidateAntiForgeryToken]
-       
-        
         public IActionResult EliminarConfirmada(int id)
         {
             var resultado = _context.Resultados.Find(id);
