@@ -16,8 +16,6 @@ namespace FormulaUnoObligatorio.Models
         public int PosicionCarrera { get; set; }
 
         public int PuntosCarrera { get; set; }
-
-      
         public List<Resultado>? Resultados { get; set; }
     }
 }
