@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FormulaUnoObligatorio.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241203204150_PuntosTotales")]
-    partial class PuntosTotales
+    [Migration("20241205044241_Initial-Create")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

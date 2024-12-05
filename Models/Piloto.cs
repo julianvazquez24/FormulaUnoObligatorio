@@ -35,7 +35,7 @@ namespace FormulaUnoObligatorio.Models
 
         public int PuntajePiloto { get; set; }
         public List<Resultado>? Resultados { get; }
-        public int CarrerasGanadas { get; set; }
+
         public Piloto() { }
 
         public Piloto(string nombrePiloto)

@@ -9,11 +9,11 @@ namespace FormulaUnoObligatorio.Controllers
 {
     public class PilotoController : Controller
     {
-        private readonly AppDbContext _context; // AppDbContext permite que la aplicación interactúe con la base de datos.
+        private readonly AppDbContext _context;
 
         public PilotoController(AppDbContext context)
         {
-            _context = context; // _context es la variable que usas en el controlador para acceder a las tablas de la base de datos y realizar operaciones CRUD.
+            _context = context; 
         }
 
         public IActionResult Index()
@@ -25,7 +25,7 @@ namespace FormulaUnoObligatorio.Controllers
         }
 
 
-        // Details (Ver los detalles de un Piloto)
+    
         public IActionResult Detalles(int? id)
         {
             if (id == null)
@@ -47,14 +47,14 @@ namespace FormulaUnoObligatorio.Controllers
         }
 
 
-        // Get Create
+     
         public IActionResult Crear()
         {
            ViewBag.IdEscuderia= new SelectList(_context.Escuderias, "IdEscuderia", "NombreEscuderia");
             return View();
         }
 
-        // POST: Create
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Crear([Bind("NombrePiloto, ApellidoPiloto, PaisPiloto, FechaNacimiento, IdEscuderia")] Piloto piloto)
@@ -86,7 +86,6 @@ namespace FormulaUnoObligatorio.Controllers
             return View(piloto);
         }
 
-        // Get Edit
         [HttpGet]
         public IActionResult Editar(int? id)
         {

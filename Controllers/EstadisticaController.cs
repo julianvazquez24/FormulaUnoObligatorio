@@ -1,4 +1,4 @@
-﻿ using FormulaUnoObligatorio.Data;
+﻿using FormulaUnoObligatorio.Data;
 using FormulaUnoObligatorio.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -6,18 +6,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FormulaUnoObligatorio.Controllers
 {
-    public class Estadisticas : Controller
+    public class EstadisticaController : Controller
     {
         private readonly AppDbContext _context;
-        public Estadisticas(AppDbContext context)
+        public EstadisticaController(AppDbContext context)
         {
             _context = context;
         }
 
         public IActionResult Index(int idPiloto, int idEscuderia)
         {
+
             ViewBag.TablaPosicionesPilotos = ObtenerPosicionesPilotos();
-          //  ViewBag.HistorialDeCarrerasDeUnPiloto = ObtenerHistorialDeCarrerasDeUnPiloto(idPiloto);
+            //ViewBag.HistorialDeCarrerasDeUnPiloto = ObtenerHistorialDeCarrerasDeUnPiloto(idPiloto);
             // ViewBag.TablaPosicionesEscuderias = ObtenerTablaPosicionesEscuderias();
             ViewBag.TablaPosicionesEscuderias = ObtenerPosicionesEscuderias();
            // ViewBag.HistorialDeCarrerasDeUnaEscudería = ObtenerHistorialDeCarrerasDeUnaEscudería(idEscuderia);
@@ -66,4 +67,3 @@ namespace FormulaUnoObligatorio.Controllers
     }
 
 }
-

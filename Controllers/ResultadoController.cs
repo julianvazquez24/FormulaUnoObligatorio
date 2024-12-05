@@ -158,8 +158,15 @@ namespace FormulaUnoObligatorio.Controllers
                 .Select(p => p.NombrePiloto)
                 .FirstOrDefault();
 
-            ViewBag.PosicionesSalida = Enumerable.Range(1, 20).ToList();
-            ViewBag.PosicionesLlegada = Enumerable.Range(1, 20).ToList();
+            var resultadosExistentes = _context.Resultados
+            .Where(r => r.IdCarrera == id.Value)
+            .ToList();
+
+            var posicionesOcupadasSalida = resultadosExistentes.Select(r => r.PosicionSalida).ToList();
+            var posicionesOcupadasLlegada = resultadosExistentes.Select(r => r.PosicionLlegada).ToList();
+
+            ViewBag.PosicionesSalida = Enumerable.Range(1, 20).Except(posicionesOcupadasSalida).ToList();
+            ViewBag.PosicionesLlegada = Enumerable.Range(1, 20).Except(posicionesOcupadasLlegada).ToList();
 
             return View(resultado);
         }

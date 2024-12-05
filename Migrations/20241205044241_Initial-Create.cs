@@ -6,26 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FormulaUnoObligatorio.Migrations
 {
     /// <inheritdoc />
-    public partial class agregamosResultados : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Carreras",
-                columns: table => new
-                {
-                    IdCarrera = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NombreCarrera = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CiudadCarrera = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FechaCarrera = table.Column<DateOnly>(type: "date", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Carreras", x => x.IdCarrera);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Escuderias",
                 columns: table => new
@@ -34,11 +19,29 @@ namespace FormulaUnoObligatorio.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NombreEscuderia = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SponsorOficial = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PaisEscuderia = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    PaisEscuderia = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PuntosTotales = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Escuderias", x => x.IdEscuderia);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Carreras",
+                columns: table => new
+                {
+                    IdCarrera = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NombreCarrera = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CiudadCarrera = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FechaCarrera = table.Column<DateOnly>(type: "date", nullable: false),
+                    IdPiloto = table.Column<int>(type: "int", nullable: false),
+                    PilotoIdPiloto = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carreras", x => x.IdCarrera);
                 });
 
             migrationBuilder.CreateTable(
@@ -51,7 +54,10 @@ namespace FormulaUnoObligatorio.Migrations
                     ApellidoPiloto = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PaisPiloto = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FechaNacimiento = table.Column<DateOnly>(type: "date", nullable: false),
-                    IdEscuderia = table.Column<int>(type: "int", nullable: false)
+                    IdEscuderia = table.Column<int>(type: "int", nullable: false),
+                    IdResultado = table.Column<int>(type: "int", nullable: false),
+                    ResultadoPilotoIdResultado = table.Column<int>(type: "int", nullable: true),
+                    PuntajePiloto = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -93,9 +99,19 @@ namespace FormulaUnoObligatorio.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Carreras_PilotoIdPiloto",
+                table: "Carreras",
+                column: "PilotoIdPiloto");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Pilotos_IdEscuderia",
                 table: "Pilotos",
                 column: "IdEscuderia");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Pilotos_ResultadoPilotoIdResultado",
+                table: "Pilotos",
+                column: "ResultadoPilotoIdResultado");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Resultados_IdCarrera",
@@ -106,22 +122,44 @@ namespace FormulaUnoObligatorio.Migrations
                 name: "IX_Resultados_IdPiloto",
                 table: "Resultados",
                 column: "IdPiloto");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Carreras_Pilotos_PilotoIdPiloto",
+                table: "Carreras",
+                column: "PilotoIdPiloto",
+                principalTable: "Pilotos",
+                principalColumn: "IdPiloto");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Pilotos_Resultados_ResultadoPilotoIdResultado",
+                table: "Pilotos",
+                column: "ResultadoPilotoIdResultado",
+                principalTable: "Resultados",
+                principalColumn: "IdResultado");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Resultados");
+            migrationBuilder.DropForeignKey(
+                name: "FK_Carreras_Pilotos_PilotoIdPiloto",
+                table: "Carreras");
 
-            migrationBuilder.DropTable(
-                name: "Carreras");
+            migrationBuilder.DropForeignKey(
+                name: "FK_Resultados_Pilotos_IdPiloto",
+                table: "Resultados");
 
             migrationBuilder.DropTable(
                 name: "Pilotos");
 
             migrationBuilder.DropTable(
                 name: "Escuderias");
+
+            migrationBuilder.DropTable(
+                name: "Resultados");
+
+            migrationBuilder.DropTable(
+                name: "Carreras");
         }
     }
 }

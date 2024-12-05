@@ -2,4 +2,124 @@
     ViewData["Tittle"] = "Carrera Page";
 }
 
-<h1 style="text-align: center;">Formula 1</h1>
+<!-- Agregar Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f4f4f4;
+    }
+
+    h3 {
+        font-family: 'Merriweather', serif;
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 1.8rem;
+    }
+
+    .section {
+        padding: 60px 20px;
+        margin-bottom: 50px;
+        text-align: center;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+        .section:not(:last-child) {
+            border-bottom: 3px solid #cccccc;
+        }
+
+        .section p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+    .btn {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+
+    .intro-icon {
+        font-size: 3rem;
+        margin-bottom: 15px;
+        color: #007bff;
+    }
+
+    .section img {
+        max-width: 100%;
+        border-radius: 10px;
+        margin: 20px 0;
+    }
+</style>
+
+<h1 class="text-center display-4 my-4">Fórmula 1</h1>
+
+<div class="container">
+    <!-- Introducción -->
+    <div class="text-center mb-5">
+        <div class="intro-icon">🏁</div>
+        <h2 class="mb-4">Descubre la Fórmula 1</h2>
+        <p style="font-size: 1.2rem; line-height: 1.8;">
+            La Fórmula 1 es la categoría reina del automovilismo, donde tecnología, velocidad y pasión se combinan
+            en una emocionante lucha por la gloria. Desde sus inicios en 1950, ha sido el escenario de rivalidades
+            legendarias y avances que inspiran la industria automotriz.
+        </p>
+        <p style="font-size: 1.2rem; line-height: 1.8;">
+            Conoce datos curiosos, momentos inolvidables y recomendaciones de videos y documentales. ¡Siente la emoción
+            de la velocidad como nunca antes!
+        </p>
+    </div>
+
+    <!-- Secciones -->
+    <div class="section">
+        <h3>El piloto más joven en debutar</h3>
+       
+        <p>
+            El piloto más joven en la historia de la Fórmula 1 es Max Verstappen, quien debutó con solo
+            <strong>17 años y 166 días</strong> en el Gran Premio de Australia de 2015 con el equipo Toro Rosso.
+            Este récord difícilmente será batido debido a la regla actual que exige que los pilotos tengan
+            al menos 18 años para obtener una superlicencia.
+        </p>
+        <a href="https://www.netflix.com/title/80204890" class="btn btn-secondary" target="_blank">Ver documental</a>
+    </div>
+
+    <div class="section">
+        <h3>El récord de mayor número de títulos</h3>
+       
+        <p>
+            Michael Schumacher y Lewis Hamilton comparten el récord de <strong>7 títulos mundiales cada uno</strong>, consolidándose como los pilotos más exitosos de la historia. Schumacher dominó con Ferrari en los años 2000, mientras que Hamilton ha sido la figura clave de la era híbrida con Mercedes.
+        </p>
+        <a href="https://www.netflix.com/title/81399204" class="btn btn-secondary" target="_blank">Ver documental</a>
+    </div>
+
+    <div class="section">
+        <h3>La vuelta más rápida de la historia</h3>
+      
+        <p>
+            El tiempo de vuelta más rápido registrado en la Fórmula 1 fue de <strong>1:18.119</strong> por Lewis Hamilton en Monza 2020, con un promedio de velocidad de <strong>264,362 km/h</strong>. Esto refuerza el apodo de Monza como el "Templo de la Velocidad".
+        </p>
+        <a href="https://www.youtube.com/results?search_query=italian+gp+2020+highlights" class="btn btn-secondary" target="_blank">Ver video</a>
+    </div>
+
+    <div class="section">
+        <h3>Hollywood y la F1</h3>
+    
+        <p>
+            La película <em>Rush</em> (2013), dirigida por Ron Howard, recrea la intensa rivalidad entre James Hunt y Niki Lauda durante la temporada de 1976. Este filme es una de las mejores representaciones del espíritu de la Fórmula 1 en la pantalla grande.
+        </p>
+        <a href="https://www.youtube.com/watch?v=lzNbGH1oZJc" class="btn btn-secondary" target="_blank">Ver tráiler</a>
+    </div>
+
+    <div class="section">
+        <h3>¿Sabías que...?</h3>
+        <p>
+            El Gran Premio de Mónaco es uno de los pocos circuitos donde los pilotos no alcanzan velocidades máximas superiores a
+            los 300 km/h debido a su diseño estrecho y revirado. Es también uno de los eventos más prestigiosos del calendario.
+        </p>
+        <a href="https://www.youtube.com/results?search_query=monaco+gp+onboard+lap" class="btn btn-secondary" target="_blank">Ver video</a>
+    </div>
+</div>

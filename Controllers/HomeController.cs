@@ -86,8 +86,8 @@ namespace FormulaUnoObligatorio.Controllers
                     new Piloto { NombrePiloto = "Pierre", ApellidoPiloto = "Gasly", PaisPiloto = "Francia", FechaNacimiento = new DateOnly(1996, 2, 7), IdEscuderia = alpineId },
                     new Piloto { NombrePiloto = "Kevin", ApellidoPiloto = "Magnussen", PaisPiloto = "Dinamarca", FechaNacimiento = new DateOnly(1992, 10, 5), IdEscuderia = haasId },
                     new Piloto { NombrePiloto = "Nico", ApellidoPiloto = "Hülkenberg", PaisPiloto = "Alemania", FechaNacimiento = new DateOnly(1987, 8, 19), IdEscuderia = haasId },
-                    new Piloto { NombrePiloto = "Yuki", ApellidoPiloto = "Tsunoda", PaisPiloto = "Corea del Norte", FechaNacimiento = new DateOnly(2000,5,11), IdEscuderia = haasId },
-                    new Piloto { NombrePiloto = "Liam", ApellidoPiloto = "Lawson", PaisPiloto = "Nueva Zelanda  ", FechaNacimiento = new DateOnly(2002, 2, 11), IdEscuderia = haasId },
+                    new Piloto { NombrePiloto = "Yuki", ApellidoPiloto = "Tsunoda", PaisPiloto = "Corea del Norte", FechaNacimiento = new DateOnly(2000,5,11), IdEscuderia = vcaRedBullId },
+                    new Piloto { NombrePiloto = "Liam", ApellidoPiloto = "Lawson", PaisPiloto = "Nueva Zelanda  ", FechaNacimiento = new DateOnly(2002, 2, 11), IdEscuderia = vcaRedBullId },
 
                 };
 

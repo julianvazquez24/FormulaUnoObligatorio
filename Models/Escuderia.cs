@@ -15,9 +15,10 @@ namespace FormulaUnoObligatorio.Models
 
         [Required(ErrorMessage = "El país no puede estar vacío")]
         public string PaisEscuderia { get; set; }
+        public int PuntosTotales { get; set; }
         public List<Piloto> Pilotos { get; set; } = new List<Piloto>();
 
-        public int PuntosTotales { get; set; }
+        
     }
 }
 

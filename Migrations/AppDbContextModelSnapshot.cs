@@ -47,12 +47,6 @@ namespace FormulaUnoObligatorio.Migrations
                     b.Property<int?>("PilotoIdPiloto")
                         .HasColumnType("int");
 
-                    b.Property<int>("PosicionCarrera")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PuntosCarrera")
-                        .HasColumnType("int");
-
                     b.HasKey("IdCarrera");
 
                     b.HasIndex("PilotoIdPiloto");
@@ -99,9 +93,6 @@ namespace FormulaUnoObligatorio.Migrations
                     b.Property<string>("ApellidoPiloto")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CarrerasGanadas")
-                        .HasColumnType("int");
 
                     b.Property<DateOnly>("FechaNacimiento")
                         .HasColumnType("date");
