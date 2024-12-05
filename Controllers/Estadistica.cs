@@ -20,23 +20,46 @@ namespace FormulaUnoObligatorio.Controllers
             ViewBag.HistorialDeCarrerasDeUnPiloto = ObtenerHistorialDeCarrerasDeUnPiloto(idPiloto);
             // ViewBag.TablaPosicionesEscuderias = ObtenerTablaPosicionesEscuderias();
             ViewBag.TablaPosicionesEscuderias = ObtenerPuntosPorEscudería();
-            ViewBag.HistorialDeCarrerasDeUnaEscudería = ObtenerHistorialDeCarrerasDeUnaEscudería(idEscuderia);
-            ViewBag.CarrerasGanadas = ObtenerCarrerasGanadas();
+           // ViewBag.HistorialDeCarrerasDeUnaEscudería = ObtenerHistorialDeCarrerasDeUnaEscudería(idEscuderia);
+           // ViewBag.CarrerasGanadas = ObtenerCarrerasGanadas();
             return View();
         }
 
         private List<Piloto> ObtenerPosicionesPilotos()
         {
-            return _context.Pilotos.OrderBy(p => p.PuntajePiloto).ToList();
+            return _context.Pilotos.OrderByDescending(p => p.PuntajePiloto).ToList();
         }
 
         private List<Carrera> ObtenerHistorialDeCarrerasDeUnPiloto(int idPiloto)
         {
+            
             return _context.Carreras
                 .Where(c => c.IdPiloto == idPiloto)
+                .Select(c => new Carrera
+                {
+                    IdCarrera = c.IdCarrera,
+                    NombreCarrera = c.NombreCarrera,
+                    FechaCarrera = c.FechaCarrera,
+                    PosicionCarrera = c.PosicionCarrera,
+                    PuntosCarrera = c.PuntosCarrera, 
+                })
                 .OrderBy(c => c.FechaCarrera)
                 .ToList();
         }
+
+        public IActionResult HistorialCarrerasPiloto(int idPiloto)
+        {
+            var historial = ObtenerHistorialDeCarrerasDeUnPiloto(idPiloto);
+
+            ViewBag.NombrePiloto = _context.Pilotos
+                .Where(p => p.IdPiloto == idPiloto)
+                .Select(p => p.NombrePiloto)
+                .FirstOrDefault();
+
+            return View(historial);
+        }
+
+
 
 
         private List<Escuderia> ObtenerPuntosPorEscudería()
@@ -57,46 +80,6 @@ namespace FormulaUnoObligatorio.Controllers
 
             return escuderiasConPuntos.OrderByDescending(e => e.PuntosTotales).ToList();
         }
-
-        private List<Carrera> ObtenerHistorialDeCarrerasDeUnaEscudería(int idEscuderia)
-        {
-            var historialCarreras = _context.Carreras
-                .Where(c => c.Piloto.IdEscuderia == idEscuderia)  
-                .Include(c => c.Piloto)  
-                .OrderBy(c => c.FechaCarrera)
-                .ToList();
-
-            return historialCarreras;
-        }
-
-        private List<Piloto> ObtenerCarrerasGanadas()
-        {
-            // Obtener todos los pilotos que han participado en alguna carrera
-            var pilotos = _context.Pilotos.ToList();
-
-            var pilotosConPrimerosLugares = new List<Piloto>();
-
-            // Contar las veces que cada piloto ha quedado en primer lugar
-            foreach (var piloto in pilotos)
-            {
-                var carrerasGanadas = _context.Carreras
-                    .Where(c => c.IdPiloto == piloto.IdPiloto && c.PosicionCarrera == 1) // Solo primeros lugares
-                    .Count();
-
-                if (carrerasGanadas > 0)
-                {
-                    pilotosConPrimerosLugares.Add(new Piloto
-                    {
-                        NombrePiloto = piloto.NombrePiloto,
-                        CarrerasGanadas = carrerasGanadas
-                    });
-                }
-            }
-
-            // Ordenar por la cantidad de carreras ganadas (de mayor a menor)
-            return pilotosConPrimerosLugares.OrderByDescending(p => p.CarrerasGanadas).ToList();
-        }
-
     }
 
 }
