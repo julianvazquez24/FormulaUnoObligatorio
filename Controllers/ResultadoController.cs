@@ -131,6 +131,7 @@ namespace FormulaUnoObligatorio.Controllers
             {
                 _context.Resultados.Remove(resultado);
                 _context.SaveChanges();
+                ActualizarPuntajesPilotos();
             }
             return RedirectToAction(nameof(Index));
         }
