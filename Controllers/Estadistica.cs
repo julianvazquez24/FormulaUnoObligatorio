@@ -17,7 +17,7 @@ namespace FormulaUnoObligatorio.Controllers
         public IActionResult Index(int idPiloto, int idEscuderia)
         {
             ViewBag.TablaPosicionesPilotos = ObtenerPosicionesPilotos();
-            ViewBag.HistorialDeCarrerasDeUnPiloto = ObtenerHistorialDeCarrerasDeUnPiloto(idPiloto);
+            //ViewBag.HistorialDeCarrerasDeUnPiloto = ObtenerHistorialDeCarrerasDeUnPiloto(idPiloto);
             // ViewBag.TablaPosicionesEscuderias = ObtenerTablaPosicionesEscuderias();
             ViewBag.TablaPosicionesEscuderias = ObtenerPosicionesEscuderias();
            // ViewBag.HistorialDeCarrerasDeUnaEscudería = ObtenerHistorialDeCarrerasDeUnaEscudería(idEscuderia);

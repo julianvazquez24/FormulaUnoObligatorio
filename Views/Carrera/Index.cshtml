@@ -26,8 +26,6 @@
                 <td>@Html.DisplayFor(modelItem => item.CiudadCarrera)</td>
                 <td>@Html.DisplayFor(modelItem => item.FechaCarrera)</td>
                 <td>@Html.DisplayFor(modelItem => item.Piloto.NombrePiloto)</td>
-                <td>@Html.DisplayFor(modelItem => item.PosicionCarrera)</td> 
-                <td>@Html.DisplayFor(modelItem => item.PuntosCarrera)</td>  
                 <td>
                     <a class="btn btn-primary" asp-action="Detalles" asp-route-id="@item.IdCarrera">Detalles</a>
                     <a class="btn btn-warning" asp-action="Editar" asp-route-id="@item.IdCarrera">Editar</a>
