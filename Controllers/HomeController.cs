@@ -76,6 +76,8 @@ namespace FormulaUnoObligatorio.Controllers
                     new Piloto { NombrePiloto = "George", ApellidoPiloto = "Russell", PaisPiloto = "Reino Unido", FechaNacimiento = new DateOnly(1998, 2, 15), IdEscuderia = mercedesId },
                     new Piloto { NombrePiloto = "Max", ApellidoPiloto = "Verstappen", PaisPiloto = "Holanda", FechaNacimiento = new DateOnly(1997, 9, 30), IdEscuderia = redBullId },
                     new Piloto { NombrePiloto = "Checo", ApellidoPiloto = "Perez", PaisPiloto = "Mexico", FechaNacimiento = new DateOnly(1990, 1, 26), IdEscuderia = redBullId },
+                    new Piloto { NombrePiloto = "Oscar", ApellidoPiloto = "Piastri", PaisPiloto = "Australia", FechaNacimiento = new DateOnly(2001, 5, 6), IdEscuderia = mcLarenId },
+                    new Piloto { NombrePiloto = "Lando", ApellidoPiloto = "Norris", PaisPiloto = "Reino Unido", FechaNacimiento = new DateOnly(1999, 11, 13), IdEscuderia = mcLarenId },
                     new Piloto { NombrePiloto = "Valtteri", ApellidoPiloto = "Bottas", PaisPiloto = "Finlandia", FechaNacimiento = new DateOnly(1989, 8, 28), IdEscuderia = sauberId },
                     new Piloto { NombrePiloto = "Zhou", ApellidoPiloto = "Guanyu", PaisPiloto = "China", FechaNacimiento = new DateOnly(1999, 5, 30), IdEscuderia = sauberId },
                     new Piloto { NombrePiloto = "Alexander", ApellidoPiloto = "Albon", PaisPiloto = "Tailandia", FechaNacimiento = new DateOnly(1996, 3, 23), IdEscuderia = williamsId },
@@ -104,7 +106,6 @@ namespace FormulaUnoObligatorio.Controllers
                     new Carrera { NombreCarrera = " Australian GP" , CiudadCarrera = "Melbourne" , FechaCarrera = new DateOnly(2024,3,24)},
                     new Carrera { NombreCarrera = " Japanese GP" , CiudadCarrera = "Suzuka" , FechaCarrera = new DateOnly(2024,4,7)},
                     new Carrera { NombreCarrera = " Chinese GP" , CiudadCarrera = "Shanghai" , FechaCarrera = new DateOnly(2024,4,21)},
-
                     new Carrera { NombreCarrera = " Miami GP" , CiudadCarrera = "Miami" , FechaCarrera = new DateOnly(2024,5,05)},
                     new Carrera { NombreCarrera = " Emilia Romagna GP" , CiudadCarrera = "Imola" , FechaCarrera = new DateOnly(2024,5,19)},
                     new Carrera { NombreCarrera = " Monaco GP" , CiudadCarrera = "Monte Carlo" , FechaCarrera = new DateOnly(2024,5,26)},
